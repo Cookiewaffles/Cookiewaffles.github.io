@@ -1,0 +1,85 @@
+.header{
+    color:  teal;
+    background-color: rgb(78, 78, 78);
+}
+.header.left{
+    float: left;
+    width: 303;
+    height: 281;
+}
+.header.right{
+    width: 1073;
+    height: 281;
+    float: right;
+}
+
+
+.title{
+    font-size: 64px;
+    font-weight: bold;
+
+    text-align: center;
+
+    color: black;
+    background-color: teal;
+
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.BG0Col{
+    color: teal;
+    background-color: rgb(78, 78, 78);
+
+    float: left;
+}
+.BG0Col.left{
+    width: 50%;
+}
+.BG0Col.right{
+    width: 50%;
+}
+
+
+.BG1Col{
+    color: teal;
+    background-color: rgb(78, 78, 78);
+
+    margin: 0; 
+
+
+    width: 50%;
+    float: left;
+}
+.BG1Col.left, .BG1Col.middle{
+    width: 25%;
+}
+.right{
+    width: 50%;
+    height: 360;
+}
+
+
+.BG2Col{
+    color: rgb(78, 78, 78);
+    background-color: teal;
+
+    margin: 0;
+
+    float: left;
+}
+
+.BG2Col.left, .BG2Col.middle{
+    width: 25%;
+}
+
+.BG2Col.right{
+    width: 50%;
+    height: 360;
+}
+
+
+p{
+    margin: 0;
+
+}
