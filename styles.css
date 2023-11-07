@@ -4,11 +4,11 @@
 }
 .header.left{
     float: left;
-    width: 303;
+    width: 20%;
     height: 281;
 }
 .header.right{
-    width: 1073;
+    width: 80%;
     height: 281;
     float: right;
 }
