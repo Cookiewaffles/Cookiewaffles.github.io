@@ -1,0 +1,6 @@
+Classic, 0
+Shorty, 300
+Frenzy, 450
+Ghost, 500
+Bandit, 600
+Sheriff, 800

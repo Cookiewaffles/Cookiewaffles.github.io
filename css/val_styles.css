@@ -1,0 +1,517 @@
+:root{
+    --valorant-red: #ff4654;
+    --valorant-darkred: #ba3a46;
+    --valorant-navy: #111823;
+    --valorant-white: #ffffff;
+    --tan: #e6e1d1;
+    --white: #ffffff;
+    --off-white: #FAF9F6;
+    --border-color: #000000;
+
+    --background-main-color-pc: #2c3e50;
+    --background-secondary-color-pc: #0192c7;
+
+    --coral-red: #FF5E62;
+    --elctric-blue: #36B1C7;
+} 
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+ 
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: var(--background-main-color-pc);
+}
+p, h1, h2, h3, label {
+    color: var(--white);
+}
+#prevMoney, #spendMoney {
+    color: black;
+}
+nav {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    overflow: auto;
+}
+
+.nav-links, footer ul {
+    list-style-type: none;
+    padding-left: 0;
+    
+}
+.nav-links a, footer ul a {
+    color: var(--valorant-red);
+}
+.nav-links {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: flex-start;
+    align-items: center;
+}
+a {
+    text-decoration: none;
+    color: var(--valorant-red);
+}
+header {
+    color: var(--valorant-darkred)
+}
+header h1 {
+    padding-top: 10px;
+    text-align: center;
+}
+header li {
+    padding: 10px;
+}
+.nav-links li {
+    border: 2px solid var(--valorant-darkred);
+    background-color: var(--background-main-color-pc);
+}
+header a {
+    font-size: 18px;
+    padding: 10px;
+}
+button, .hamburger {
+    cursor: pointer;
+
+    background-color: var(--valorant-darkred);
+    color: var(--valorant-white);
+
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 0 #3d3d3d;
+    margin: 5px;
+
+    width: 100px;
+    height: 50px;
+}
+img {
+    max-width: 30%;
+    max-height: 140px;
+}
+
+header {
+    background-color: var(--valorant-navy);
+}
+
+
+/*region Sections*/
+section{
+    margin-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+
+    border-bottom: 1px solid black;
+}
+section:nth-child(odd){
+
+}
+section#strategySelection, section#secretSelection{
+    height: 100%;
+    min-height: 50px;
+}
+#setupMenu > div {
+    margin-top: 10px;
+}
+
+#agentSetup, #mapSetup, #moneySetup {
+    display: flex;
+    flex-direction: row;
+}
+#agentSetup label, #mapSetup label, #moneySetup label {
+  flex-shrink: 0;
+}
+
+#agentSetup select, #mapSetup select, #moneySetup input {
+  flex: 1;
+  margin-right: 5px;
+}
+/*endregion*/
+
+/*button region*/
+#roundResults{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: center;
+} 
+#roundResults #winSurvive {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+#roundResults #winDie {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;    }
+#roundResults #loseSurvive {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+#roundResults #loseDie {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+#roundResults #kill {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+}
+#roundResults #spike {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+}
+/*endregion*/
+
+/*region Money*/
+#moneySection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#moneySection .money-helper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    border: 1px solid var(--border-color);
+    background-color: var(--tan);
+    margin-right: 10px;
+}
+#moneySection .money-helper div {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+   
+    padding: 5px;
+    background-color: var(--tan);
+}
+#moneySection .money-helper div:nth-child(odd) {
+    background-color: var(--valorant-darkred);
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-weight: bold;
+}
+#moneySection .money-helper div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--border-color);
+}
+/*endregion*/
+
+/*reset button*/
+.user-control-button {
+    display: flex;
+    align-self: center;
+}
+
+/*region Loadout section*/
+#primaryGun, #pistolGun, #shield {
+    display: flex;
+    flex-direction: row;
+}
+/*endregion*/
+
+/*region ability section*/
+#abilitySelection {
+    display: flex;
+    flex-direction: column;
+}
+#abilitySelection .titleArea p {
+    color: white;
+    padding-left: 10px;
+}
+#abilitySelection .hidden-text {
+    display: none;
+}
+#abilitySelection > div.abilities {
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+}
+#abilitySelection > div > img {
+    justify-self: center;
+}
+#abilitySelection > div > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#abilitySelection > div > div > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#abilitySelection .abilityBox {
+        min-width: 28px;
+        width: 28px;
+}
+/*endregion*/
+
+/*region Strats section*/
+#strategySelection, #secretSelection {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-bottom: 10px;
+}
+/*endregion*/
+
+/*general rules*/
+.margin-20-right {
+    margin-right: 20px;
+}
+.margin-20-left {
+    margin-left: 20px;
+}
+/*flex rules*/
+.flex-30 {
+  flex: 0 0 30%; 
+  display: flex;
+  justify-content: flex-end;
+}
+.flex-40 {
+  flex: 0 0 40%; 
+}
+.flex-50 {
+  flex: 0 0 50%; 
+}
+.flex-70 {
+  flex: 0 0 70%; 
+}
+.flex-end{
+  display: flex;
+  justify-content: flex-end;
+}
+.flex-center{
+  display: flex;
+  justify-content: center;
+}
+@media screen and (min-width: 30em) {
+    /*Navigation*/
+    .nav-links {
+        justify-content: flex-end;
+    }
+    
+}
+
+@media screen and (min-width: 60em) {
+    body {
+        background-color: var(--background-main-color-pc);
+    }
+    section{
+        margin: 0;
+        padding: 0;
+        border-bottom: none;
+    }
+    section:nth-child(odd) {
+        background-color: var(--background-main-color-pc);
+    }
+    /*section setup*/
+    .interactiveZone {
+        display: grid;
+        grid-template-columns: 30% 20% 20% 30%; 
+        grid-template-rows: 375px 150px;
+    }
+
+    .interactiveZone > :nth-child(n){
+        border: 1px solid var(--border-color);
+    }
+    #setupMenu > div{
+        margin: 0;
+    }
+
+    /*agent and money*/
+    #agentSetup label, #mapSetup label, #moneySection, #moneySetup, #moneySetup label{
+        display: block;
+    }
+    #agentSetup > label, #mapSetup > label, #moneySetup > label {
+        font-weight: bold;
+    }
+    /*agent*/
+    #agentSetup{
+        padding-top: 10px;
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid var(--border-color);
+
+        background: linear-gradient(to left, var(--background-main-color-pc) 30%, var(--background-secondary-color-pc) 100%);
+
+    }
+    #agentSetup > * {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+    /*agent*/
+    #mapSetup{
+        padding-top: 10px;
+
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid var(--border-color);
+
+        background: linear-gradient(to left, var(--background-main-color-pc) 30%, var(--background-secondary-color-pc) 100%);
+    }
+    #mapSetup > * {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+    
+    /*money*/
+    #moneySetup {
+        padding-top: 10px;
+        
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid var(--border-color);
+
+        background: linear-gradient(to left, var(--background-main-color-pc) 30%, var(--background-secondary-color-pc) 100%);
+    }
+    
+    #moneySetup > * {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    #moneySection .money-helper {
+        padding-top: 0;
+        margin-right: 0;
+        border: none;
+        background-color: transparent;
+
+        background: linear-gradient(to left, var(--elctric-blue) 20%, var(--valorant-darkred) 100%);
+    }
+    #moneySection .money-helper div:nth-child(odd){
+        background-color: transparent;
+        color: black;
+        border-right: none;
+        border-left: none;
+    }
+    #moneySection .money-helper div:nth-child(n+2){
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    #moneySection .money-helper div {
+        background-color: transparent;
+    }
+
+    /*user control button*/
+    .user-control-button {
+        margin-top: 8px;
+        justify-content: center;
+    }
+
+    /*Loadout Section*/
+    #gunSelection{
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+        min-height: 100px;
+
+        border-bottom: 2px solid black;
+    }
+    #gunSelection #loadoutTitle, #gunSelection #primaryGun,
+    #gunSelection #pistolGun, #gunSelection #shield {
+        display: grid;
+        grid-template-rows: 50px 50px;
+    }
+    #gunSelection #loadoutTitle h2 {
+        display: flex;
+
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 10px;
+    }
+    #gunSelection #primaryGun h3, #gunSelection #pistolGun h3, 
+    #gunSelection #shield h3 {
+        justify-content: center;
+        align-items: center;
+    }
+    #gunSelection #loadout-title p, #gunSelection #primaryGun p,
+    #gunSelection #pistolGun p, #gunSelection #shield p {
+        align-items: center;
+        color: white;
+    }
+
+    #gunSelection #loadoutTitle :first-child, #gunSelection #primaryGun :first-child,
+    #gunSelection #pistolGun :first-child, #gunSelection #shield :first-child {
+        background-color: var(--background-secondary-color-pc);
+        border-bottom: 2px solid black;
+        border-right: 1px solid black;
+    }
+
+    /*Ability loadout*/
+    #abilitySelection h2 {
+        background-color: var(--background-secondary-color-pc);
+        border-bottom: 2px solid black;
+        
+        padding-left: 10px;
+    }
+    
+    
+
+    /*Strat loadout*/
+    #strategySelection h2 {
+        background-color: var(--background-secondary-color-pc);
+        border-bottom: 2px solid black;
+
+        padding-left: 10px;
+    }
+    #strategySelection p {
+        color: white;
+
+        padding-left: 20px;
+     }
+
+    /*Secret loadout*/
+    #secretSelection h2 {
+        background-color: var(--background-secondary-color-pc);
+        border-bottom: 2px solid black;
+
+        padding-left: 10px;
+    }
+    #secretSelection p {
+        color: white;
+        
+        padding-left: 20px;
+     }
+
+    /*button rules*/
+    #roundResults{
+    display: grid;
+    grid-template-columns: repeat(6, 16.67%);
+    justify-content: center;
+    }
+    #roundResults button {
+        width: auto;
+    }   
+    #roundResults #winSurvive {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+    #roundResults #winDie {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;    }
+    #roundResults #loseSurvive {
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
+    }
+    #roundResults #loseDie {
+        grid-column: 4/ 5;
+        grid-row: 1 / 2;
+    }
+    #roundResults #kill {
+        grid-column: 5 / 6;
+        grid-row: 1 / 2;
+    }
+    #roundResults #spike {
+        grid-column: 6 / 7;
+        grid-row: 1 / 2;
+    }
+
+
+    /*grid rules*/
+    .span-1 { grid-column: span 1; }
+    .span-2 { grid-column: span 2; }
+    .span-3 { grid-column: span 3; }
+}

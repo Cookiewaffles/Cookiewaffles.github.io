@@ -1,0 +1,15 @@
+none, 0
+Stinger, 1100
+Spectre, 1600
+Bucky, 850
+Judge, 1850
+Bulldog, 2050
+Guardian, 2250
+Warden, 2900
+Phantom, 2900
+Vandal, 2900
+Marshall, 950
+Outlaw, 2400
+Operator, 4700
+Ares, 1600
+Odin, 3200

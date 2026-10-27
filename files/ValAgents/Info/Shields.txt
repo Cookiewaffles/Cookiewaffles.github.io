@@ -1,0 +1,4 @@
+None, 0
+Light, 400
+Regen, 650
+Heavy, 1000

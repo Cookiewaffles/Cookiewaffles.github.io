@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portoflio - Home</title>
+
+    <link rel="stylesheet" href="../../css/val_styles.css" />
+
+    <!--Font Awesome loading-->
+    <link
+      rel="stylesheet preload"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+      as="style"
+    />
+
+    <script src="../../js/headerFooter.js" defer></script>
+    <script src="../../js/valorant.js" defer></script> 
+</head>
+
+<body>
+    <main>
+        <valo-header></valo-header>
+        <div class="interactiveZone">
+            <section id="setupMenu" class="span-1">
+                <div id="agentSetup">
+                    <label class="flex-30 margin-20-right" for="agentSelect">Agent Select :</label>
+                    <select class="flex-70" name="agentValue" id="agentSelect">
+                        <option value="">--Choose an Option--</option>
+                    </select>
+                </div>
+
+                <div id="mapSetup">
+                    <label class="flex-30 margin-20-right" for="mapSelect">Map Select :</label>
+                    <select class="flex-70" name="mapValue" id="mapSelect">
+                        <option value="">--Choose an Option--</option>
+                    </select>
+                </div>
+
+                <div id="moneySection">
+                    <div id="moneySetup">
+                        <label class="flex-30 padding-20-right" for="currMoney">Money Left :</label>
+                        <input class="flex-70" type="number" id="currMoney" name="valueOfMoney" value="800" />
+                    </div>
+
+                    <div class="money-helper">
+                        <div><p>Current Money : </p></div>
+                        <div><p id="prevMoney">0000</p></div>
+                        <div><p>Spending : </p></div>
+                        <div><p id="spendMoney">0000</p></div>
+                    </div>
+
+                    <div class="user-control-button">
+                        <button id="startBtn">Start</button>
+                        <button id="manualRerollBtn">Manual Reroll</button>
+                        <button id="resetBtn">Reset</button>
+                    </div>
+                </div>
+            </section>
+            <div class="span-3">
+                <section id="gunSelection">
+                    <div id="loadoutTitle">
+                        <h2>Loadout : </h2>
+                    </div>
+                    <div id="primaryGun">
+                        <h3 class="flex-30 flex-end">Primary : </h3>
+                        <p class="flex-70 flex-center">?Gun?</p>
+                    </div>
+                    <div id="pistolGun">
+                        <h3 class="flex-30 flex-end">Pistol : </h3>
+                        <p class="flex-70 flex-center">?Gun?</p>
+                    </div>
+                    <div id="shield">
+                        <h3 class="flex-30 flex-end">Shield : </h3>
+                        <p class="flex-70 flex-center">?Shield?</p>
+                    </div>
+                </section>
+
+                <section id="abilitySelection">
+                    <div class="titleArea">
+                        <h2>Abilities : </h2>
+                        <p id="agentAddText"></p>
+                        <p id="agentSecretNumber" class="hidden-text">0</p>
+                    </div>
+                    
+                    <div class="abilities">
+                        <div>
+                            <img id="abilityA" src="../../images/x.png" alt="An letter X" />
+                            <div>
+                                <img id="A-1" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="A-2" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="A-3" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                            </div>
+                            <button id="abilityAButton">-1</button>
+                            <p id="abilityACount" class="hidden-text">0</p>
+                        </div>
+                        <div>
+                            <img id="abilityB" src="../../images/x.png" alt="An letter X" />
+                            <div>
+                                <img id="B-1" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="B-2" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="B-3" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="B-4" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="B-5" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="B-6" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="B-7" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="B-8" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                            </div>
+                            <button id="abilityBButton">-1</button>
+                            <p id="abilityBCount" class="hidden-text">0</p>
+                        </div>
+                        <div>
+                            <img id="abilityC" src="../../images/x.png" alt="An letter X" />
+                            <div>
+                                <img id="C-1" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="C-2" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                                <img id="C-3" class="abilityBox" src="../../images/ValorantAbilityIcons/box.png" alt="An ability box" />
+                            </div>
+                            <button id="abilityCButton">-1</button>
+                            <p id="abilityCCount" class="hidden-text">0</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <section id="strategySelection" class="span-2">
+                <h2>Strategy : </h2>
+                <p>???</p>
+            </section>
+
+            <section id="secretSelection"  class="span-2">
+                <h2>Secret Task : </h2>
+                <p>???</p>
+            </section>
+        </div>
+        <div>
+            <section id="roundResults">
+                <button id="winSurvive">Round Win <br> (Survived)</button>
+                <button id="winDie">Round Win <br> (Died)</button>
+                <button id="kill">Enemy Kill <br> (+1)</button>
+                <button id="loseSurvive">Round Lost <br> (Survived)</button>
+                <button id="loseDie">Round Lost <br> (Died)</button>
+                <button id="spike">Spike <br> Planted</button>
+            </section>
+        </div>
+    </main>
+</body>
