@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         if(mapSelect.value === ""){
-            console.log("Error: No map selected")
-            return;
+            //console.log("Error: No map selected")
+            //return;
         }
 
         startBTN.disabled = true;
@@ -736,11 +736,11 @@ function agentAbilityChart(agentName){
             break;
         case "Deadlock":
             abilityA1.hidden = false;
-            abilityA2.hidden = false;
+            abilityA2.hidden = true;
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = true;
+            abilityB2.hidden = false;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
@@ -755,11 +755,11 @@ function agentAbilityChart(agentName){
             break;
         case "Fade":
             abilityA1.hidden = false;
-            abilityA2.hidden = true;
+            abilityA2.hidden = false;
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = false;
+            abilityB2.hidden = true;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
@@ -812,12 +812,12 @@ function agentAbilityChart(agentName){
             break;
         case "Hush":
             abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = false;
+            abilityA2.hidden = true;
+            abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = false;
+            abilityB2.hidden = true;
+            abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
             abilityB6.hidden = true;
@@ -825,8 +825,8 @@ function agentAbilityChart(agentName){
             abilityB8.hidden = true;
 
             abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = false;
+            abilityC2.hidden = true;
+            abilityC3.hidden = true;
             
             break;
         case "Iso":
@@ -850,6 +850,25 @@ function agentAbilityChart(agentName){
             break;
         case "Jett":
             abilityA1.hidden = false;
+            abilityA2.hidden = false;
+            abilityA3.hidden = true;
+
+            abilityB1.hidden = false;
+            abilityB2.hidden = true;
+            abilityB3.hidden = true;
+            abilityB4.hidden = true;
+            abilityB5.hidden = true;
+            abilityB6.hidden = true;
+            abilityB7.hidden = true;
+            abilityB8.hidden = true;
+
+            abilityC1.hidden = false;
+            abilityC2.hidden = true;
+            abilityC3.hidden = true;
+            
+            break;
+        case "Kayo":
+            abilityA1.hidden = false;
             abilityA2.hidden = true;
             abilityA3.hidden = true;
 
@@ -867,7 +886,7 @@ function agentAbilityChart(agentName){
             abilityC3.hidden = true;
             
             break;
-        case "Kayo":
+        case "Killjoy":
             abilityA1.hidden = false;
             abilityA2.hidden = false;
             abilityA3.hidden = true;
@@ -886,32 +905,13 @@ function agentAbilityChart(agentName){
             abilityC3.hidden = true;
             
             break;
-        case "Killjoy":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
         case "Miks":
             abilityA1.hidden = false;
-            abilityA2.hidden = true;
+            abilityA2.hidden = false;
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = false;
+            abilityB2.hidden = true;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
@@ -945,11 +945,11 @@ function agentAbilityChart(agentName){
             break;
         case "Omen":
             abilityA1.hidden = false;
-            abilityA2.hidden = true;
+            abilityA2.hidden = false;
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = false;
+            abilityB2.hidden = true;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
@@ -983,11 +983,11 @@ function agentAbilityChart(agentName){
             break;
         case "Raze":
             abilityA1.hidden = false;
-            abilityA2.hidden = false;
+            abilityA2.hidden = true;
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = true;
+            abilityB2.hidden = false;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
@@ -1021,11 +1021,11 @@ function agentAbilityChart(agentName){
             break;
         case "Sage":
             abilityA1.hidden = false;
-            abilityA2.hidden = false;
+            abilityA2.hidden = true;
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = true;
+            abilityB2.hidden = false;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
@@ -1059,11 +1059,11 @@ function agentAbilityChart(agentName){
             break;
         case "Sova":
             abilityA1.hidden = false;
-            abilityA2.hidden = false;
+            abilityA2.hidden = true;
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = true;
+            abilityB2.hidden = false;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
@@ -1097,11 +1097,11 @@ function agentAbilityChart(agentName){
             break;
         case "Veto":
             abilityA1.hidden = false;
-            abilityA2.hidden = true;
+            abilityA2.hidden = false;
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = false;
+            abilityB2.hidden = true;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
@@ -1135,11 +1135,11 @@ function agentAbilityChart(agentName){
             break;
         case "Vyse":
             abilityA1.hidden = false;
-            abilityA2.hidden = true;
+            abilityA2.hidden = false;
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = false;
+            abilityB2.hidden = true;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
@@ -1158,7 +1158,7 @@ function agentAbilityChart(agentName){
             abilityA3.hidden = true;
 
             abilityB1.hidden = false;
-            abilityB2.hidden = false;
+            abilityB2.hidden = true;
             abilityB3.hidden = true;
             abilityB4.hidden = true;
             abilityB5.hidden = true;
