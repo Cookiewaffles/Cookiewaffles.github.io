@@ -40,11 +40,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const abilityCCount = document.getElementById("abilityCCount");
 
     //
-    document.getElementById("B-4").hidden = true;
-    document.getElementById("B-5").hidden = true;
-    document.getElementById("B-6").hidden = true;
-    document.getElementById("B-7").hidden = true;
-    document.getElementById("B-8").hidden = true;
+    const abilityA1 = document.getElementById("A-1");
+    const abilityA2 = document.getElementById("A-2");
+    const abilityA3 = document.getElementById("A-3");
+
+    const abilityB1 = document.getElementById("B-1");
+    const abilityB2 = document.getElementById("B-2");
+    const abilityB3 = document.getElementById("B-3");
+    const abilityB4 = document.getElementById("B-4");
+    const abilityB5 = document.getElementById("B-5");
+    const abilityB6 = document.getElementById("B-6");
+    const abilityB7 = document.getElementById("B-7");
+    const abilityB8 = document.getElementById("B-8");
+
+    const abilityC1 = document.getElementById("C-1");
+    const abilityC2 = document.getElementById("C-2");
+    const abilityC3 = document.getElementById("C-3");
+
+    abilityB4.hidden = true;
+    abilityB5.hidden = true;
+    abilityB6.hidden = true;
+    abilityB7.hidden = true;
+    abilityB8.hidden = true;
 
 
     var roundsLostInARow = 0;
@@ -104,6 +121,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if(currentRound == 14){
             moneyCurr.value = 800;
             roundsLostInARow = 0;
+
+            abilityA1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityB1.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB2.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB3.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB4.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB5.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB6.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB7.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB8.src = "../../images/ValorantAbilityIcons/box.png"
+
+            abilityC1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityACount.textContent = "0";
+            abilityBCount.textContent = "0";
+            abilityCCount.textContent = "0";
         }
 
         if(agentSelect.value === "Random"){
@@ -127,29 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
     resetBTN.addEventListener("click", () => {
-        agentSelect.value = "";
-        mapSelect.value = "";
-
-        loadoutPrimary.textContent = "?Gun?";
-        loadoutPistol.textContent = "?Gun?";
-        loadoutShield.textContent = "?Shield?";
-
-        abilityA.src = "../../images/x.png";
-        abilityB.src = "../../images/x.png";
-        abilityC.src = "../../images/x.png";
-
-        currentRound = 1;
-        roundsLostInARow = 0;
-        moneySpent.textContent = "0000";
-        moneyPrev.textContent = "0000";
-        moneyCurr.value = 800;
-
-        stratText.textContent = "???";
-        secretText.textContent = "???";
-
-        startBTN.disabled = false;
-        agentSelect.disabled = false;
-        mapSelect.disabled = false;
+        window.location.reload();
     });
 
     //Result Button
@@ -162,6 +178,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if(currentRound == 14){
             moneyCurr.value = 800;
             roundsLostInARow = 0;
+
+            abilityA1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityB1.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB2.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB3.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB4.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB5.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB6.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB7.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB8.src = "../../images/ValorantAbilityIcons/box.png"
+
+            abilityC1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityACount.textContent = "0";
+            abilityBCount.textContent = "0";
+            abilityCCount.textContent = "0";
         }
 
         nextRound(currentRound, roundsLostInARow, moneyCurr.value, "lived", agentSelect.value).then(information => {
@@ -187,6 +224,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if(currentRound == 14){
             moneyCurr.value = 800;
             roundsLostInARow = 0;
+
+            abilityA1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityB1.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB2.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB3.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB4.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB5.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB6.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB7.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB8.src = "../../images/ValorantAbilityIcons/box.png"
+
+            abilityC1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityACount.textContent = "0";
+            abilityBCount.textContent = "0";
+            abilityCCount.textContent = "0";
         }
 
         nextRound(currentRound, roundsLostInARow, moneyCurr.value, "died", agentSelect.value).then(information => {
@@ -212,6 +270,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if(currentRound == 14){
             moneyCurr.value = 800;
             roundsLostInARow = 0;
+
+            abilityA1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityB1.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB2.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB3.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB4.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB5.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB6.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB7.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB8.src = "../../images/ValorantAbilityIcons/box.png"
+
+            abilityC1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityACount.textContent = "0";
+            abilityBCount.textContent = "0";
+            abilityCCount.textContent = "0";
         }
 
         nextRound(currentRound, roundsLostInARow, moneyCurr.value, "lived", agentSelect.value).then(information => {
@@ -249,6 +328,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if(currentRound == 14){
             moneyCurr.value = 800;
             roundsLostInARow = 0;
+
+            abilityA1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityA3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityB1.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB2.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB3.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB4.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB5.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB6.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB7.src = "../../images/ValorantAbilityIcons/box.png"
+            abilityB8.src = "../../images/ValorantAbilityIcons/box.png"
+
+            abilityC1.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC2.src = "../../images/ValorantAbilityIcons/box.png";
+            abilityC3.src = "../../images/ValorantAbilityIcons/box.png";
+
+            abilityACount.textContent = "0";
+            abilityBCount.textContent = "0";
+            abilityCCount.textContent = "0";
         }
 
         nextRound(currentRound, roundsLostInARow, moneyCurr.value, "died", agentSelect.value).then(information => {
@@ -269,9 +369,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     killBTN.addEventListener("click", () => {
         currMoney.value = +currMoney.value + 200;
+
+        if(currMoney.value > 9999){currMoney.value = 9999}
     });
     spikeBTN.addEventListener("click", () => {
         currMoney.value = +currMoney.value + 300;
+        if(currMoney.value > 9999){currMoney.value = 9999}
     });
 
     //Ability Count Buttons

@@ -237,6 +237,9 @@ section#strategySelection, section#secretSelection{
     justify-content: center;
     align-items: center;
 }
+#abilityB-boxes {
+    flex-wrap: wrap;
+}
 #abilitySelection > div > div > div {
     display: flex;
     flex-direction: row;
