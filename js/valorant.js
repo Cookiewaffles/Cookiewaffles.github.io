@@ -482,15 +482,20 @@ function agentSetup(agent, abilityA, abilityB, abilityC) {
 async function nextRound(roundNumber, roundsLostInARow, currMoney, aliveOrDead, agentName){
     //elements
     const agentAddText = document.getElementById("agentAddText");
+    const primaryText = document.querySelector("#primaryGun p");
+    const PistolText = document.querySelector("#pistolGun p");
+    const ShieldText = document.querySelector("#shield p");
 
     //Result Variables
-    var Primary = "None";
-    var Pistol = "None";
-    var Shield = "None";
+    var Primary = primaryText.textContent;
+    var Pistol = PistolText.textContent;
+    var Shield = ShieldText.textContent;
     var moneySpent = 0;
     var abilityMoneySpent = 0;
     //Set Money
     currMoney = +currMoney;
+
+    console.log(roundNumber);
 
     //Grab Lists
     const PistolResponse =  await fetch('./../../files/ValAgents/Info/Pistols.txt');
@@ -584,16 +589,19 @@ async function nextRound(roundNumber, roundsLostInARow, currMoney, aliveOrDead, 
     }
     else{
         if(currMoney <= 3000){
+            
             const buyOrSave = Math.floor(Math.random() * 100) + 1;
             if(buyOrSave <= 44){
-                //Pistol
-                const filteredPistols = PistolList.filter(item => item[1] <= currMoney);
-                if(filteredPistols.length > 0){
-                    const randomPistolNumber = Math.floor(Math.random() * filteredPistols.length);
+                if(aliveOrDead === "died" || roundNumber == 3){
+                    //Pistol
+                    const filteredPistols = PistolList.filter(item => item[1] <= currMoney);
+                    if(filteredPistols.length > 0){
+                        const randomPistolNumber = Math.floor(Math.random() * filteredPistols.length);
 
-                    currMoney = currMoney - filteredPistols[randomPistolNumber][1];
-                    moneySpent = moneySpent + filteredPistols[randomPistolNumber][1];
-                    Pistol = filteredPistols[randomPistolNumber][0];
+                        currMoney = currMoney - filteredPistols[randomPistolNumber][1];
+                        moneySpent = moneySpent + filteredPistols[randomPistolNumber][1];
+                        Pistol = filteredPistols[randomPistolNumber][0];
+                    }
                 }
 
                 //abilities
@@ -613,15 +621,17 @@ async function nextRound(roundNumber, roundsLostInARow, currMoney, aliveOrDead, 
                 }
             }
             else{
-                //Primary
-                const filteredPrimary = PrimaryList.filter(item => item[1] <= currMoney);
+                if(aliveOrDead === "died" || roundNumber == 3){
+                    //Primary
+                    const filteredPrimary = PrimaryList.filter(item => item[1] <= currMoney);
 
-                if(filteredPrimary.length > 0){
-                    const randomPrimaryNumber = Math.floor(Math.random() * filteredPrimary.length);
-                
-                    currMoney = currMoney - filteredPrimary[randomPrimaryNumber][1];
-                    moneySpent = moneySpent + filteredPrimary[randomPrimaryNumber][1];
-                    Primary = filteredPrimary[randomPrimaryNumber][0];
+                    if(filteredPrimary.length > 0){
+                        const randomPrimaryNumber = Math.floor(Math.random() * filteredPrimary.length);
+                    
+                        currMoney = currMoney - filteredPrimary[randomPrimaryNumber][1];
+                        moneySpent = moneySpent + filteredPrimary[randomPrimaryNumber][1];
+                        Primary = filteredPrimary[randomPrimaryNumber][0];
+                    }
                 }
 
                 //abilities
@@ -641,30 +651,34 @@ async function nextRound(roundNumber, roundsLostInARow, currMoney, aliveOrDead, 
                     Shield = filteredShields[randomShieldNumber][0];
                 }
 
-                //Pistol
-                const filteredPistols = PistolList.filter(item => item[1] <= currMoney);
+                if(aliveOrDead === "died"){
+                    //Pistol
+                    const filteredPistols = PistolList.filter(item => item[1] <= currMoney);
 
-                if(filteredPistols.length > 0){
-                    const randomPistolNumber = Math.floor(Math.random() * filteredPistols.length);
+                    if(filteredPistols.length > 0){
+                        const randomPistolNumber = Math.floor(Math.random() * filteredPistols.length);
 
-                    currMoney = currMoney - filteredPistols[randomPistolNumber][1];
-                    moneySpent = moneySpent + filteredPistols[randomPistolNumber][1];
-                    Pistol = filteredPistols[randomPistolNumber][0];
+                        currMoney = currMoney - filteredPistols[randomPistolNumber][1];
+                        moneySpent = moneySpent + filteredPistols[randomPistolNumber][1];
+                        Pistol = filteredPistols[randomPistolNumber][0];
+                    }
                 }
             }
         }
         else{
-            //Primary
-            PrimaryList = PrimaryList.filter(item => item[1] > 0);
+            if(aliveOrDead === "died" || roundNumber == 3){
+                //Primary
+                PrimaryList = PrimaryList.filter(item => item[1] > 0);
 
-            const filteredPrimary = PrimaryList.filter(item => item[1] <= currMoney);
-            
-            if(filteredPrimary.length > 0){
-                const randomPrimaryNumber = Math.floor(Math.random() * filteredPrimary.length);
-            
-                currMoney = currMoney - filteredPrimary[randomPrimaryNumber][1];
-                moneySpent = moneySpent + filteredPrimary[randomPrimaryNumber][1];
-                Primary = filteredPrimary[randomPrimaryNumber][0];
+                const filteredPrimary = PrimaryList.filter(item => item[1] <= currMoney);
+                
+                if(filteredPrimary.length > 0){
+                    const randomPrimaryNumber = Math.floor(Math.random() * filteredPrimary.length);
+                
+                    currMoney = currMoney - filteredPrimary[randomPrimaryNumber][1];
+                    moneySpent = moneySpent + filteredPrimary[randomPrimaryNumber][1];
+                    Primary = filteredPrimary[randomPrimaryNumber][0];
+                }
             }
 
             //abilities
@@ -688,15 +702,17 @@ async function nextRound(roundNumber, roundsLostInARow, currMoney, aliveOrDead, 
                 Shield = filteredShields[randomShieldNumber][0];
             }
 
-            //Pistol
-            const filteredPistols = PistolList.filter(item => item[1] <= currMoney);
+            if(aliveOrDead === "died"){
+                //Pistol
+                const filteredPistols = PistolList.filter(item => item[1] <= currMoney);
 
-            if(filteredPistols.length > 0){
-                const randomPistolNumber = Math.floor(Math.random() * filteredPistols.length);
+                if(filteredPistols.length > 0){
+                    const randomPistolNumber = Math.floor(Math.random() * filteredPistols.length);
 
-                currMoney = currMoney - filteredPistols[randomPistolNumber][1];
-                moneySpent = moneySpent + filteredPistols[randomPistolNumber][1];
-                Pistol = filteredPistols[randomPistolNumber][0];
+                    currMoney = currMoney - filteredPistols[randomPistolNumber][1];
+                    moneySpent = moneySpent + filteredPistols[randomPistolNumber][1];
+                    Pistol = filteredPistols[randomPistolNumber][0];
+                }
             }
         }
     }
