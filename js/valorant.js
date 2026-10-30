@@ -93,22 +93,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         agentSetup(agentSelect.value, abilityA, abilityB, abilityC);
 
-        agentAbilityChart(agentSelect.value);
+        agentAbilityChart(agentSelect.value).then(() => {
+            if(agentSelect.value === "Reyna"){
+                agentAddText.textContent = "Ability 2 and 3 charges are together. If you have a charge in one, you may use either ability"
+            }
+            
+            nextRound(currentRound, roundsLostInARow, moneyCurr.value, "start", agentSelect.value).then(information => {
+                loadoutPrimary.textContent = information[0];
+                loadoutPistol.textContent = information[1];
+                loadoutShield.textContent = information[2];
+                moneySpent.textContent = `- ${information[3]}`;
+                moneyPrev.textContent = moneyCurr.value;
 
-        if(agentSelect.value === "Reyna"){
-            agentAddText.textContent = "Ability 2 and 3 charges are together. If you have a charge in one, you may use either ability"
-        }
-        
-        nextRound(currentRound, roundsLostInARow, moneyCurr.value, "start", agentSelect.value).then(information => {
-            loadoutPrimary.textContent = information[0];
-            loadoutPistol.textContent = information[1];
-            loadoutShield.textContent = information[2];
-            moneySpent.textContent = `- ${information[3]}`;
-            moneyPrev.textContent = moneyCurr.value;
+                moneyCurr.value = moneyCurr.value - information[3];
 
-            moneyCurr.value = moneyCurr.value - information[3];
-
-            currentRound = +currentRound + 1
+                currentRound = +currentRound + 1
+            });
         });
     });
     manualRerollBTN.addEventListener("click", () => {
@@ -720,596 +720,50 @@ async function nextRound(roundNumber, roundsLostInARow, currMoney, aliveOrDead, 
     return [Primary, Pistol, Shield, moneySpent];
 }
 
-function agentAbilityChart(agentName){
-    const abilityA1 = document.getElementById("A-1");
-    const abilityA2 = document.getElementById("A-2");
-    const abilityA3 = document.getElementById("A-3");
-
-    const abilityB1 = document.getElementById("B-1");
-    const abilityB2 = document.getElementById("B-2");
-    const abilityB3 = document.getElementById("B-3");
-    const abilityB4 = document.getElementById("B-4");
-    const abilityB5 = document.getElementById("B-5");
-    const abilityB6 = document.getElementById("B-6");
-    const abilityB7 = document.getElementById("B-7");
-    const abilityB8 = document.getElementById("B-8");
-
-    const abilityC1 = document.getElementById("C-1");
-    const abilityC2 = document.getElementById("C-2");
-    const abilityC3 = document.getElementById("C-3");
-
-    switch (agentName) {
-        case "Astra":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = true;
-
-            break;
-        case "Breach":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-
-            break;
-        case "Brimstone":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = false;
-            
-            break;
-        case "Chamber":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = false;
-            abilityB4.hidden = false;
-            abilityB5.hidden = false;
-            abilityB6.hidden = false;
-            abilityB7.hidden = false;
-            abilityB8.hidden = false;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Clove":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Cypher":
-            abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Deadlock":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Fade":
-            abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Gekko":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Harbor":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Hush":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Iso":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Jett":
-            abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Kayo":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Killjoy":
-            abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Miks":
-            abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Neon":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Omen":
-            abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Phoenix":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Raze":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Reyna":
-            abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Sage":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Skye":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Sova":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = false;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Tejo":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Veto":
-            abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Viper":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Vyse":
-            abilityA1.hidden = false;
-            abilityA2.hidden = false;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Waylay":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = true;
-            abilityC3.hidden = true;
-            
-            break;
-        case "Yoru":
-            abilityA1.hidden = false;
-            abilityA2.hidden = true;
-            abilityA3.hidden = true;
-
-            abilityB1.hidden = false;
-            abilityB2.hidden = true;
-            abilityB3.hidden = true;
-            abilityB4.hidden = true;
-            abilityB5.hidden = true;
-            abilityB6.hidden = true;
-            abilityB7.hidden = true;
-            abilityB8.hidden = true;
-
-            abilityC1.hidden = false;
-            abilityC2.hidden = false;
-            abilityC3.hidden = true;
-            
-            break;
-        default:
+async function agentAbilityChart(agentName){
+    const response =  await fetch(`./../../files/ValAgents/${agentName}/ability.txt`);
+    const content = await response.text();
+    const lines = content.split(/\r?\n/);
+
+    var agentAbilityList = lines
+    .map(line => line.trim())
+    .filter(line => line.length > 0) // Skip empty lines
+    .map(line => {
+        // Split by comma (change delimiter if your file uses spaces or tabs)
+        const [strPart, numPart] = line.split(','); 
+        
+        return [strPart.trim(), parseInt(numPart.trim(), 10)];
+    });
+
+    if(agentName == "Astra"){
+        agentAbilityList.shift();
+    }
+
+    //abiltiy A
+    for(i = 0; i < 3; i++){
+        if(i < agentAbilityList[0][1]){
+            document.getElementById(`A-${i+1}`).hidden = false;
+        }else{
+            document.getElementById(`A-${i+1}`).hidden = true;
+        } 
+    }
+    
+    //abiltiy B
+    for(i = 0; i < 8; i++){
+        if(i < agentAbilityList[1][1]){
+            document.getElementById(`B-${i+1}`).hidden = false;
+        }else{
+            document.getElementById(`B-${i+1}`).hidden = true;
+        } 
+    }
+
+    //abiltiy C
+    for(i = 0; i < 3; i++){
+        if(i < agentAbilityList[2][1]){
+            document.getElementById(`C-${i+1}`).hidden = false;
+        }else{
+            document.getElementById(`C-${i+1}`).hidden = true;
+        } 
     }
 }
 
