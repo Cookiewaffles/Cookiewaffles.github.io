@@ -39,6 +39,15 @@
                     </select>
                 </div>
 
+                <div id="gameSetup">
+                    <label class="flex-30 margin-20-right" for="gameSelect">Game Select :</label>
+                    <select class="flex-70" name="gameValue" id="gameSelect">
+                        <option value="">--Choose an Option--</option>
+                        <option value="normal">Unrated/Competitive</option>
+                        <option value="swift">Swiftplay</option>
+                    </select>
+                </div>
+
                 <div id="moneySection">
                     <div id="moneySetup">
                         <label class="flex-30 padding-20-right" for="currMoney">Money Left :</label>
@@ -50,6 +59,8 @@
                         <div><p id="prevMoney">0000</p></div>
                         <div><p>Spending : </p></div>
                         <div><p id="spendMoney">0000</p></div>
+                        <div><p>Current Round : </p></div>
+                        <div><p id="roundNumber">0</p></div>
                     </div>
 
                     <div class="user-control-button">

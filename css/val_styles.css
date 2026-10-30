@@ -28,7 +28,7 @@ body{
 p, h1, h2, h3, label {
     color: var(--white);
 }
-#prevMoney, #spendMoney {
+#prevMoney, #spendMoney, #roundNumber {
     color: black;
 }
 nav {
@@ -117,15 +117,15 @@ section#strategySelection, section#secretSelection{
     margin-top: 10px;
 }
 
-#agentSetup, #mapSetup, #moneySetup {
+#agentSetup, #mapSetup, #gameSetup, #moneySetup {
     display: flex;
     flex-direction: row;
 }
-#agentSetup label, #mapSetup label, #moneySetup label {
+#agentSetup label, #mapSetup label, #gameSetup label, #moneySetup label {
   flex-shrink: 0;
 }
 
-#agentSetup select, #mapSetup select, #moneySetup input {
+#agentSetup select, #mapSetup select, #gameSetup select, #moneySetup input {
   flex: 1;
   margin-right: 5px;
 }
@@ -194,7 +194,7 @@ section#strategySelection, section#secretSelection{
     color: var(--white);
     font-weight: bold;
 }
-#moneySection .money-helper div:nth-child(-n + 2) {
+#moneySection .money-helper div:nth-child(-n + 4) {
     border-bottom: 1px solid var(--border-color);
 }
 /*endregion*/
@@ -326,10 +326,10 @@ section#strategySelection, section#secretSelection{
     }
 
     /*agent and money*/
-    #agentSetup label, #mapSetup label, #moneySection, #moneySetup, #moneySetup label{
+    #agentSetup label, #mapSetup label, #gameSetup label, #moneySection, #moneySetup, #moneySetup label{
         display: block;
     }
-    #agentSetup > label, #mapSetup > label, #moneySetup > label {
+    #agentSetup > label, #mapSetup > label, #gameSetup label, #moneySetup > label {
         font-weight: bold;
     }
     /*agent*/
@@ -346,7 +346,7 @@ section#strategySelection, section#secretSelection{
         margin-left: 10px;
         margin-bottom: 10px;
     }
-    /*agent*/
+    /*map*/
     #mapSetup{
         padding-top: 10px;
 
@@ -357,6 +357,20 @@ section#strategySelection, section#secretSelection{
         background: linear-gradient(to left, var(--background-main-color-pc) 30%, var(--background-secondary-color-pc) 100%);
     }
     #mapSetup > * {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+    /*Game*/
+    #gameSetup{
+        padding-top: 10px;
+
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid var(--border-color);
+
+        background: linear-gradient(to left, var(--background-main-color-pc) 30%, var(--background-secondary-color-pc) 100%);
+    }
+    #gameSetup > * {
         margin-left: 10px;
         margin-bottom: 10px;
     }
