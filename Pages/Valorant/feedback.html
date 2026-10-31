@@ -6,17 +6,41 @@
     <title>Portoflio - Home</title>
 
     <link rel="stylesheet" href="../../css/val_styles.css" />
+    <link rel="stylesheet" href="../../css/form.css" />
 
     <!--Font Awesome loading-->
    <script src="https://kit.fontawesome.com/acd873c10d.js" crossorigin="anonymous"></script>
 
     <script src="../../js/headerFooter.js" defer></script>
-    <script src="../../js/valorant.js" defer></script> 
+    <script src="../../js/form.js" defer></script> 
 </head>
 
 <body>
     <valo-header></valo-header>
     <main>
+        <h1>Feedback : </h1>
+        <div class="form-container">
+            <form action="/submit-endpoint" method="POST">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="e.g. janesmith" required>
+                </div>
+                
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" placeholder="optional">
+                </div>
+                
+                <div>
+                    <label for="feedback">Feedback:</label>
+                    <textarea id="feedback" name="feedback" placeholder="Enter your feedback here..." required></textarea>
+                </div>
+                
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
     </main>
     <valo-footer></valo-footer>
 </body>

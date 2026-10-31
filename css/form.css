@@ -1,0 +1,28 @@
+main h1 {
+    margin-left: 5em;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;       
+}
+
+form {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form div {
+    margin-top: 15px;
+}
+
+#feedback {
+    height: 100px;
+}
