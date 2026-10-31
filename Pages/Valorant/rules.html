@@ -11,12 +11,93 @@
    <script src="https://kit.fontawesome.com/acd873c10d.js" crossorigin="anonymous"></script>
 
     <script src="../../js/headerFooter.js" defer></script>
-    <script src="../../js/valorant.js" defer></script> 
 </head>
 
 <body>
     <valo-header></valo-header>
-    <main>
+    <main id="rulePage">
+        <section class="alert">
+            <ul>
+                <li>This page is still in development. More rules shall be added in future updates</li>
+                <li>Please note that Astra is currently not available do to issues with the previous logic</li>
+            </ul>
+        </section>
+        <section id="rulesExplaination" class="explanation">
+            <h1>Game Rules</h1>
+            <p>The rules explain how to use the application to get the best experience possible. While not all rules are mandatory, this should provide a helpful outline to the how to enjoy the randomizer. If you have any feedback or recommendations, please head over to the feedback page and send a request and I'll be sure to read it.</p>
+        </section>
+
+        <section id="gameFunctionality" class="explanation">
+            <h2>How to Use</h2>
+            <p>These are the guidlines on how to operate the randomizer. This section will explain the steps to play the game and the functionality of each of the buttons.</p>
+
+            <div class="table-rules">
+                <p>Basic Steps</p>
+                <p>First select your agent, map you're playing on, and the game mode you are playing on. Then select the start button to begin playing.</p>
+
+                <p>Money Text Box</p>
+                <p>If for whatever reason the money calculated gets messed up, you may manually enter the money and then hit the manual reroll button. You will need to manually set this each time until you switch sides, at which point the randomizer will reset itself.</p>
+
+                <p>Start Button</p>
+                <p>Once you've completed all select menus, you may start the game.</p>
+
+                <p>Manual Reroll Button</p>
+                <p>This will override the normal calculations for the randomizer. To use this properly, each round you will manually input your money for the round.</p>
+
+                <p>Reset Button</p>
+                <p>Once you've completed a game, please use the reset button to rest the randomizer for the next game.</p>
+
+                <p>Ability Used (-1) Buttons</p>
+                <p>This will be used to inform the randomizer when you have used an ability. Please pressed this button for each charge you used. (This does not inculded recharge uses)</p>
+
+                <p>Round Result Buttons</p>
+                <p>The bottom row of buttons are there to input result. The Round Win or Round Lost button are extremely important to click to keep accurate result of money. The Enemy kill and Spike planted are for additional moeny you can earn on a round and forgetting to click these two buttons will not drastically affect the randomizer actions. You will just have slightly less money to work with.</p>
+
+                <p>Round Win (Survived)</p>
+                <p>For when your team wins, and you do not die. The only things to be rerolled will be your ability charges and your shield.</p>
+
+                <p>Round Win (Died)</p>
+                <p>For when your team wins, and you do die. This will reroll your entire loadout section.</p>
+
+                <p>Round Lost (Survived)</p>
+                <p>For when your team loses, and you do not die. Used to calculate money as you earn less when you save. The only things to be rerolled will be your ability charges and your shield.</p>
+
+                <p>Round Lost (Died)</p>
+                <p>For when your team loses, and you do die. This will reroll your entire loadout section.</p>
+
+                <p>Enemy Killed (+1)</p>
+                <p>This is only for when you kill an enemy. For each kill you earn, you are awarded additional 200 credits.</p>
+
+                <p>Spike Planted</p>
+                <p>This is only for when your team plants the spike. Whenever your team plants spike, you are awarded additional 300 credits.</p>
+            </div>
+        </section>
+
+        <section id="levelOneRules" class="explanation">
+            <h2>Level One Rules</h2>
+            <p>These rules are all optional are here to help guide players who wish to use the randomizer to its fullest. This is the easiest ruleset.</p>
+
+            <div class="table-rules">
+                <p>Victory Reroll</p>
+                <p>If your team won and you survived, but you dislike your weapon then you may select the <b>"Round Win (Died)"</b> button and reroll your entire loadout.</p>
+
+                <p>Gun Swap</p>
+                <p>You must use one of your randomize guns to get at least one kill. When you get a kill, you may swap with a gun on the ground. In you wish to keep using this gun this click on the <b>Survived</b> buttons.</p>
+            </div>
+        </section>
+
+        <section id="levelTwoRules" class="explanation">
+            <h2>Level Two Rules</h2>
+            <p>These rules are all optional are here to help guide players who wish to use the randomizer to its fullest. All rules from the previous ruleset still apply, rules in this section will tell you if they override a pervious rule. This is ruleset is for moderate difficulty.</p>
+
+            <div class="table-rules">
+                <p>No Free Rerolls</p>
+                <p>You must select the correct buttons no matter what. If you won and survive, that is the button you must click. No free rerolls.</p>
+
+                <p>Gun Buddy</p>
+                <p>You may not swap guns at all during any rounds. The randomizer is king!</p>
+            </div>
+        </section>
     </main>
     <valo-footer></valo-footer>
 </body>

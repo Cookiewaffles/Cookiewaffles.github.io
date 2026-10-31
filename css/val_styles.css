@@ -13,6 +13,9 @@
 
     --coral-red: #FF5E62;
     --elctric-blue: #36B1C7;
+
+    --alert: #fff3cd;
+    --alert-text: #0b0303;
 } 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -133,9 +136,6 @@ section{
     padding-left: 10px;
 
     border-bottom: 1px solid black;
-}
-section:nth-child(odd){
-
 }
 section#strategySelection, section#secretSelection{
     height: 100%;
@@ -319,6 +319,97 @@ section#strategySelection, section#secretSelection{
   display: flex;
   justify-content: center;
 }
+
+/*ALERTS*/
+.alert {
+    background-color: var(--alert) !important;
+
+    margin-left: 150px;
+    margin-right: 150px;
+    padding: 15px;
+}
+.alert > ul {
+    margin-left: 15px
+}
+.alert li {
+    color: var(--alert-text) !important;
+    font-size: 16px;
+    font-weight: 500;
+}
+.alert li:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+/*-----------RULES PAGE------------*/
+#rulePage section:not(:first-child) {
+    margin-top: 32px;
+}
+#rulePage section:not(:last-child) {
+    margin-top: 32px;
+}
+#rulePage section:last-child {
+    margin-bottom: 32px;
+}
+.explanation > h1 {
+    margin-right: 50px;
+    margin-left: 50px;
+    
+    font-size: 48px;
+}
+.explanation > h2 {
+    margin-right: 50px;
+    margin-left: 50px;
+    
+    font-size: 32px;
+}
+.explanation > p {
+    margin-right: 50px;
+    margin-left: 75px;
+    margin-top: 10px;
+
+    font-size: 18px;
+}
+.explanation > p:nth-child(2) {
+    text-indent: 2em;
+}
+
+.table-rules{
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+        
+}
+.table-rules > p:nth-child(odd){
+    display: flex;
+    justify-content: center;
+}
+.table-rules > p:not(:last-child){
+    border: 2px solid black;
+}
+.table-rules > p:last-child{
+    border-top: 2px solid black;
+    border-bottom: 4px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+
+    border-radius: 0 0 15px 15px;
+}
+.table-rules > p{
+    padding: 10px;
+}
+
+.table-rules > p:nth-child(odd){
+    background-color: var(--coral-red);
+    color: black;
+    font-weight: bolder;
+}
+.table-rules > p:nth-child(even){
+    background-color: var(--elctric-blue);
+}
+
 @media screen and (min-width: 30em) {
     /*Navigation*/
     .nav-links {
@@ -347,7 +438,6 @@ section#strategySelection, section#secretSelection{
         padding: 5px;
     }
     /*endregion*/
-    
 }
 
 @media screen and (min-width: 60em) {
@@ -583,6 +673,44 @@ section#strategySelection, section#secretSelection{
     #roundResults #spike {
         grid-column: 6 / 7;
         grid-row: 1 / 2;
+    }
+
+    .table-rules{
+        display: grid;
+        grid-template-columns: 10% 90%;
+
+        margin-top: 15px;
+        margin-left: 50px;
+        margin-right: 50px;
+            
+        border-left: 2px solid black;
+        border-top: 3px solid black;
+    }
+    .table-rules > p:not(:last-child){
+        border: unset;
+    }
+    .table-rules > p:last-child {
+        border-top: unset;
+        border-left: unset;
+    }
+    .table-rules > p:nth-child(odd){
+        display: block;
+    }   
+    .table-rules > p:last-child{
+        border-radius: 0 0 15px 0;
+    }
+    .table-rules > p:last-child, .table-rules > p:nth-child(even){
+        border-right: 4px solid black;
+        border-bottom: 4px solid black;
+    }
+    .table-rules > p:not(:last-child):not(:nth-child(even)){
+        border-right: 2px solid black;
+    }
+    .table-rules > p:nth-last-child(n+3){
+        border-bottom: 2px solid black;
+    }
+    .table-rules > p:nth-last-child(2){
+        border-bottom: 4px solid black;
     }
 
 
