@@ -540,23 +540,23 @@ function UpdateMoney(moneyValue, gameMode, roundNumber, roundsLostInARow, winLos
     else if(gameMode === "swift"){
         moneyValue = +moneyValue + 3000;
 
-        if(roundNumber == 1){
+        if(roundNumber == 1 || roundNumber == 5){
             moneyValue = 800;
         }
-        else if(roundNumber == 2){
+        else if(roundNumber == 2 || roundNumber == 6){
             if(winLose === "win"){
                 moneyValue = +moneyValue + 3000;
             }else{
                 moneyValue = +moneyValue + 2400;
             }
         }
-        else if(roundNumber == 3){
+        else if(roundNumber == 3 || roundNumber == 7){
             moneyValue = +moneyValue + 4250;
         }
-        else if(roundNumber == 4){
+        else if(roundNumber == 4 || roundNumber == 8){
             moneyValue = +moneyValue + 4250;
         }
-        else if(roundNumber == 5){
+        else if(roundNumber == 9){
             moneyValue = 5000;
         }
     }
