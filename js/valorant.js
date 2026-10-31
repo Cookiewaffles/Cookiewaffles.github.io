@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ShieldList = loadoutInfo[2];
     });
 
-
     //Events
     //Setup Buttons
     startBTN.addEventListener("click", () => {
@@ -362,7 +361,6 @@ async function loadStrats(){
         // Path to your text file inside a local directory
         const response = await fetch('./../../files/ValAgents/Info/Strategies.txt');
         const text = await response.text();
-        console.log(text)
 
         const Strats = text.split(/\r?\n/);
 
@@ -373,10 +371,11 @@ async function loadStrats(){
 }
 async function loadAgentSpecificStrats(agentName){
     try {
+        if(agentName === "Cypher"){ agentName = agentName + "A"; }
+
         // Path to your text file inside a local directory
         const response = await fetch(`./../../files/ValAgents/${agentName}/Strategies.txt`);
         const text = await response.text();
-        console.log(text)
 
         const Strats = text.split(/\r?\n/);
 
@@ -385,7 +384,6 @@ async function loadAgentSpecificStrats(agentName){
         console.error('Failed to load file:', error);
     }
 }
-
 async function loadSecret(){
     try {
         // Path to your text file inside a local directory
@@ -720,9 +718,7 @@ async function LoadoutRandomizer(roundNumber, roundsLostInARow, currMoney, alive
         //Won Pistol round
         if(roundNumber == 2 || roundNumber == 14){
             //if round survived
-            console.log(aliveOrDead)
             if(aliveOrDead == "live"){
-                console.log("Round 2 live");
                 //Primary 
                 const randomPrimaryResult = CalculateLoadoutCost(currMoney, primaryList);
                 currMoney = +randomPrimaryResult[0];
@@ -738,7 +734,6 @@ async function LoadoutRandomizer(roundNumber, roundsLostInARow, currMoney, alive
                 currMoney = +abiltyCosts;
             }
             else{
-                console.log("Round 2 dead");
                  //Primary 
                 const randomPrimaryResult = CalculateLoadoutCost(currMoney, primaryList);
                 currMoney = +randomPrimaryResult[0];
@@ -762,7 +757,6 @@ async function LoadoutRandomizer(roundNumber, roundsLostInARow, currMoney, alive
         //if its after pistol round
         else{
             if(aliveOrDead == "live"){
-                console.log("Round 3 or more live");
                 //Shield
                 const randomShieldResult = CalculateLoadoutCost(currMoney, shieldList);
                 currMoney = +randomShieldResult[0];
@@ -775,7 +769,6 @@ async function LoadoutRandomizer(roundNumber, roundsLostInARow, currMoney, alive
             else{
                 //save round
                 if(currMoney <= 3000){
-                    console.log("Round 3 or more dead save");
                     //pistol
                     const randomPistolResult = CalculateLoadoutCost(currMoney, pistolList);
                     currMoney = +randomPistolResult[0];
@@ -790,7 +783,6 @@ async function LoadoutRandomizer(roundNumber, roundsLostInARow, currMoney, alive
                     currMoney = +randomShieldResult[0];
                     Shield = randomShieldResult[1];
                 }else{
-                    console.log("Round 3 or more dead buy");
                     //Primary 
                     const randomPrimaryResult = CalculateLoadoutCost(currMoney, primaryList);
                     currMoney = +randomPrimaryResult[0];
