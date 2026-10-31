@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         agentSetup(agentSelect.value, abilityA, abilityB, abilityC);
         currentRound = UpdateRoundNumber(currentRound);
 
-        loadAgentSpecificStrats().then((agentStrats) => {
+        loadAgentSpecificStrats(agentSelect.value).then((agentStrats) => {
             AgentStratList = agentStrats;
             comboStratList = [...StratsList, ...AgentStratList];
 
