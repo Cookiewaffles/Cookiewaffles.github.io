@@ -29,11 +29,15 @@ button, .hamburger {
 img {
     width: 300px;
     height: auto;
-    object-fit: contain;
+    object-fit: fill;
     box-shadow: 0 4px 3px #8b8b8d;
 
     border-radius: 10px;
 }
+#webGames img {
+    height: 150px;
+}
+
 .side-card > div:first-child {
     display: flex;
     justify-content: center;
