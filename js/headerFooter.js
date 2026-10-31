@@ -36,8 +36,10 @@ class ValoHeader extends HTMLElement {
                 <nav>
                     <ul class="nav-links">
                         <li><a href="../../index.html">Home</a></li>
+                        <li><a href="valorantRando.html">Randomizer</a></li>
                         <li><a href="rules.html">Rules</a></li>
                         <li><a href="feedback.html">Feedback</a></li>
+                        <li><a href="updates.html">Updates</a></li>
                     </ul>
                 </nav>
             </header>
