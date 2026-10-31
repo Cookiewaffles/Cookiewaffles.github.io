@@ -1,0 +1,6 @@
+All Stars must be place right next to each other
+You may only place and pick up stars, not activate them
+One a star is placed, it cannot be picked up
+You must make a line out of your placed stars
+The moment you place a star, you must activate as soon as possible
+If Ult is available, then use it to cut off a very small portion of either the left or right side of an area

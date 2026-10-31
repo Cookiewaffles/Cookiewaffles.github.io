@@ -3,6 +3,19 @@ document.addEventListener("DOMContentLoaded", () => {
     loadAgents();
     loadMaps();
 
+    var StratsList;
+    var SecretList;
+    var AgentStratList;
+
+    var comboStratList;
+
+    loadStrats().then(info => {
+        StratsList = info;
+    });
+    loadSecret().then(info => {
+        SecretList = info;
+    });
+
     //All varaibles
     const startBTN = document.getElementById("startBtn");
     const manualRerollBTN = document.getElementById("manualRerollBtn");
@@ -96,20 +109,28 @@ document.addEventListener("DOMContentLoaded", () => {
         agentSetup(agentSelect.value, abilityA, abilityB, abilityC);
         currentRound = UpdateRoundNumber(currentRound);
 
-        loadAgentInformation(agentSelect.value).then((list)=>{
-            AgentList = list;
+        loadAgentSpecificStrats().then((agentStrats) => {
+            AgentStratList = agentStrats;
+            comboStratList = [...StratsList, ...AgentStratList];
 
-            agentAbilityChartSetup(agentSelect.value, AgentList);
-            
-            if(agentSelect.value === "Reyna"){
-                agentAddText.textContent = "Ability 2 and 3 charges are together. If you have a charge in one, you may use either ability"
-            }
-            
-            LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "start", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
-                moneySpent.textContent = `- ${information}`;
-                moneyPrev.textContent = moneyCurr.value;
+            loadAgentInformation(agentSelect.value).then((list)=>{
+                AgentList = list;
 
-                moneyCurr.value = moneyCurr.value - information;
+                agentAbilityChartSetup(agentSelect.value, AgentList);
+                
+                if(agentSelect.value === "Reyna"){
+                    agentAddText.textContent = "Ability 2 and 3 charges are together. If you have a charge in one, you may use either ability"
+                }
+
+                RandomizeSecret(SecretList, secretText);
+                RandomizeStrategy(comboStratList, stratText);
+                
+                LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "start", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
+                    moneySpent.textContent = `- ${information}`;
+                    moneyPrev.textContent = moneyCurr.value;
+
+                    moneyCurr.value = moneyCurr.value - information;
+                });
             });
         });
     });
@@ -142,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         agentSetup(agentSelect.value, abilityA, abilityB, abilityC);
+        RandomizeStrategy(comboStratList, stratText);
         
         LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "start", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
             moneySpent.textContent = `- ${information}`;
@@ -172,6 +194,8 @@ document.addEventListener("DOMContentLoaded", () => {
             abilityReset();
         }
 
+        RandomizeStrategy(comboStratList, stratText);
+
         LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "live", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
             moneySpent.textContent = `- ${information}`;
             moneyPrev.textContent = moneyCurr.value;
@@ -195,6 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             abilityReset();
         }
+
+        RandomizeStrategy(comboStratList, stratText);
 
         LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "died", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
             moneySpent.textContent = `- ${information}`;
@@ -220,6 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
             abilityReset();
         }
 
+        RandomizeStrategy(comboStratList, stratText);
+
         LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "live", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
             moneySpent.textContent = `- ${information}`;
             moneyPrev.textContent = moneyCurr.value;
@@ -243,6 +271,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             abilityReset();
         }
+
+        RandomizeStrategy(comboStratList, stratText);
 
         LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "died", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
             moneySpent.textContent = `- ${information}`;
@@ -322,6 +352,49 @@ async function loadMaps() {
             
             selectMapElement.appendChild(option);
         });
+    } catch (error) {
+        console.error('Failed to load file:', error);
+    }
+}
+
+async function loadStrats(){
+    try {
+        // Path to your text file inside a local directory
+        const response = await fetch('./../../files/ValAgents/Info/Strategies.txt');
+        const text = await response.text();
+        console.log(text)
+
+        const Strats = text.split(/\r?\n/);
+
+        return Strats;
+    } catch (error) {
+        console.error('Failed to load file:', error);
+    }
+}
+async function loadAgentSpecificStrats(agentName){
+    try {
+        // Path to your text file inside a local directory
+        const response = await fetch(`./../../files/ValAgents/${agentName}/Strategies.txt`);
+        const text = await response.text();
+        console.log(text)
+
+        const Strats = text.split(/\r?\n/);
+
+        return Strats;
+    } catch (error) {
+        console.error('Failed to load file:', error);
+    }
+}
+
+async function loadSecret(){
+    try {
+        // Path to your text file inside a local directory
+        const response = await fetch('./../../files/ValAgents/Info/Secrets.txt');
+        const text = await response.text();
+
+        const Secrets = text.split(/\r?\n/);
+
+        return Secrets;
     } catch (error) {
         console.error('Failed to load file:', error);
     }
@@ -759,7 +832,6 @@ function CalculateLoadoutCost(currMoney, loadoutList){
     return [moneyLeft, randomLoadout[0]];
 }
  
-
 function CalculateAbilityCharges(agentName, currMoney, agentList){
     const agentSecretNumber = document.getElementById("agentSecretNumber");
     const abilityACount = document.getElementById("abilityACount");
@@ -885,4 +957,20 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
     }
 
     return moneyLeft;
+}
+
+function RandomizeStrategy(strategyList, strategyText){
+    const randomIndex = Math.floor(Math.random() * strategyList.length);
+
+    const randomStrat = strategyList[randomIndex];
+
+    strategyText.textContent = randomStrat;
+}
+
+function RandomizeSecret(SecretList, secretText){
+    const randomIndex = Math.floor(Math.random() * SecretList.length);
+
+    const randomStrat = SecretList[randomIndex];
+
+    secretText.textContent = randomStrat;
 }
