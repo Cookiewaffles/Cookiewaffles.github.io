@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portoflio - Home</title>
+
+    <link rel="stylesheet" href="../../../css/val_styles.css" />
+
+    <!--Font Awesome loading-->
+   <script src="https://kit.fontawesome.com/acd873c10d.js" crossorigin="anonymous"></script>
+
+    <script src="../../../js/headerFooter.js" defer></script>
+</head>
+
+<body>
+    <valo-header></valo-header>
+    <main>
+        <section class="title">
+            <h1>Patch Notes 1.01</h1>
+        </section>
+        <section class="gameNotes">
+            <h2>Radomization Logic</h2>
+            <div>
+                <p>This site all about the randomizer. Some of the logic was a bit off though.</p>
+                <ul>
+                    <li>Fixed bug where money would go negative on first round</li>
+                    <li>Fixed bug where abilities were not gaining charges</li>
+                    <li>Fixed bug where Primary, Pistol, and Shield text were being reset even when rounds were won</li>
+                    <li>Fixed bug where money could go above 9000 credits</li>
+                </ul>
+            </div>
+
+            <h2>HTML Logic</h2>
+            <div>
+                <p>Some html did not do what it was meant for. Talk about a messy webpage.</p>
+                <ul>
+                    <li>Fixed bug where links did not head to page they were meant to.</li>
+                    <li>Fixed display so that images on side cards were display at correct resolutions</li>
+                </ul>
+            </div>
+
+            <h2>Optimizations</h2>
+            <div>
+                <p>Some optimization in the way the code was created</p>
+                <ul>
+                    <li>Refactor randomization logic for the loadout and abilities</li>
+                    <li>Refactor money logic into seperate functions</li>
+                    <li>Refactor the way text files were being read</li>
+                </ul>
+            </div>
+        </section>
+        <section class="bottom-right">
+            <p>Date: Oct 31, 2026</p>
+        </section>
+    </main>
+    <valo-footer></valo-footer>
+</body>

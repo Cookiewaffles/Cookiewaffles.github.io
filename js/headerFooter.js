@@ -15,10 +15,9 @@ class MyHeader extends HTMLElement {
                     
                     <nav>
                         <ul class="nav-links">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="aboutMe.html">About Me</a></li>
-                            <li><a href="projects.html">Projects</a></li>
-                            <li><a href="/files/JheiserResume.pdf" target="_blank">Resume</a></li>
+                            <li><a href="/index.html">Home</a></li>
+                            <li><a href="/aboutMe.html">About Me</a></li>
+                            <li><a href="/projects.html">Projects</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -35,11 +34,11 @@ class ValoHeader extends HTMLElement {
                 
                 <nav>
                     <ul class="nav-links">
-                        <li><a href="../../index.html">Home</a></li>
-                        <li><a href="valorantRando.html">Randomizer</a></li>
-                        <li><a href="rules.html">Rules</a></li>
-                        <li><a href="feedback.html">Feedback</a></li>
-                        <li><a href="updates.html">Updates</a></li>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/Pages/Valorant/valorantRando.html">Randomizer</a></li>
+                        <li><a href="/Pages/Valorant/rules.html">Rules</a></li>
+                        <li><a href="/Pages/Valorant/feedback.html">Feedback</a></li>
+                        <li><a href="/Pages/Valorant/updates.html">Updates</a></li>
                     </ul>
                 </nav>
             </header>
@@ -177,7 +176,7 @@ class ValoFooter extends HTMLElement {
                     </ul>
                 </div>
                 <div class="user-info">
-                    <p>V1.0.0</p>
+                    <p>Ver 1.01</p>
                     <p>@schemaExe</p>
                 </div>
             </footer>

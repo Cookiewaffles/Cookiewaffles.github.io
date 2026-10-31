@@ -16,6 +16,8 @@
 
     --alert: #fff3cd;
     --alert-text: #0b0303;
+
+    --card-color: #a0aec0;
 } 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -128,6 +130,37 @@ footer p {
 }
 /*endregion*/
 
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75px;
+
+    border-bottom: 2px solid white;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+section.gameNotes{
+    margin-top: 20px;
+    margin-left: 200px;
+}
+section.gameNotes h2:not(:first-child){
+    margin-top: 20px;
+}
+section.gameNotes ul{
+    margin-left: 50px;
+}
+section.gameNotes ul li{
+    color: white;
+    padding: 5px;
+}
+section.gameNotes div p:first-child{
+    text-indent: 1em;
+}
+section.bottom-right {
+    text-align: right;
+    margin-right: 50px;
+}
 
 /*region Sections*/
 section{
@@ -410,6 +443,48 @@ section#strategySelection, section#secretSelection{
     background-color: var(--elctric-blue);
 }
 
+/*asides*/
+.update-cards {
+    display: flex;
+    justify-content: center;
+}
+.side-card > div:first-child {
+    display: flex;
+    justify-content: center;
+}
+.side-card img {
+    max-width: 100%;
+    max-height: 100px;
+    width: 300px;
+
+    object-fit: fill;
+
+    border-bottom: 2px solid var(--valorant-red);
+}
+.update-cards .side-card:first-child{
+    margin-top: 10px;
+}
+.update-cards .side-card{
+    width: 300px;
+    background-color: var(--card-color);
+
+    margin-bottom: 30px;
+}
+.update-cards h3 {
+    margin-left: 5px;
+}
+.update-cards p {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.side-card{
+    height: 100%;
+    overflow: hidden;
+    border: 2px solid var(--valorant-darkred);
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px rgba(113, 1, 1, 0.8);
+}
+
 @media screen and (min-width: 30em) {
     /*Navigation*/
     .nav-links {
@@ -438,6 +513,57 @@ section#strategySelection, section#secretSelection{
         padding: 5px;
     }
     /*endregion*/
+
+    .title{
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+}
+
+@media screen and (min-width: 40em) {
+    .title{
+        margin-left: 200px;
+        margin-right: 200px;
+    }
+
+    /*General flex rules*/
+    .flex-col-1-2 {
+        flex: 0 0 50%;
+    }
+    .flex-col-1-3 {
+        flex: 0 0 33%;
+    }
+    .flex-col-2-3 {
+        flex: 0 0 66%;
+    }
+
+    /*Aside cards*/
+    .update-cards{
+        padding: 0 1em;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .update-cards img{
+        box-shadow: none;
+        border-radius: 10px 10px 0 0;;
+    }
+    .columns{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 2em;
+    }
+    .columns article{
+        padding: 1em;
+    }
+    .side-card{
+        height: 100%;
+        overflow: hidden;
+        border: 2px solid var(--valorant-darkred);
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px rgba(113, 1, 1, 0.8);
+    }
 }
 
 @media screen and (min-width: 60em) {
@@ -713,6 +839,9 @@ section#strategySelection, section#secretSelection{
         border-bottom: 4px solid black;
     }
 
+    .columns{
+        flex-wrap: unset;
+    }
 
     /*grid rules*/
     .span-1 { grid-column: span 1; }
