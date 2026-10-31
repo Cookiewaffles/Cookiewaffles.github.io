@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startBTN.disabled = true;
         agentSelect.disabled = true;
         mapSelect.disabled = true;
+        gameSelect.disabled = true;
 
         if(agentSelect.value === "Random"){
             const options = Array.from(agentSelect.options).slice(2);
@@ -836,7 +837,6 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
         
         //Ability A
         chargesLeft = agentList[0][1] - abilityACount.textContent;
-        console.log(chargesLeft)
 
         maxChargesBasedByMoney = Math.floor(moneyLeft / agentList[0][0]);
 
