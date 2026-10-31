@@ -47,21 +47,38 @@ document.addEventListener("DOMContentLoaded", () => {
     abilityB7.hidden = true;
     abilityB8.hidden = true;
 
+    var PistolList;
+    var PrimaryList;
+    var ShieldList;
+    var AgentList;
 
     var roundsLostInARow = 0;
     var currentRound = 0;
+
+
+    //Grab relevant info
+    loadLoadoutInformation().then((loadoutInfo)=>{
+        PistolList = loadoutInfo[0];
+        PrimaryList = loadoutInfo[1];
+        ShieldList = loadoutInfo[2];
+    });
+
 
     //Events
     //Setup Buttons
     startBTN.addEventListener("click", () => {
         if(agentSelect.value === ""){
-            console.log("Error: No agent selected")
+            console.error("Error: No agent selected")
             return;
         }
-        if(mapSelect.value === ""){
-            //console.log("Error: No map selected")
-            //return;
+        if(gameSelect.value === ""){
+            console.error("Error: No game mode selected")
+            return;
         }
+
+        loadoutPrimary.textContent = "None";
+        loadoutPistol.textContent = "None";
+        loadoutShield.textContent = "None";
 
         startBTN.disabled = true;
         agentSelect.disabled = true;
@@ -78,53 +95,41 @@ document.addEventListener("DOMContentLoaded", () => {
         agentSetup(agentSelect.value, abilityA, abilityB, abilityC);
         currentRound = UpdateRoundNumber(currentRound);
 
-        agentAbilityChart(agentSelect.value).then(() => {
+        loadAgentInformation(agentSelect.value).then((list)=>{
+            AgentList = list;
+
+            agentAbilityChartSetup(agentSelect.value, AgentList);
+            
             if(agentSelect.value === "Reyna"){
                 agentAddText.textContent = "Ability 2 and 3 charges are together. If you have a charge in one, you may use either ability"
             }
             
-            nextRound(currentRound, roundsLostInARow, moneyCurr.value, "start", agentSelect.value).then(information => {
-                loadoutPrimary.textContent = information[0];
-                loadoutPistol.textContent = information[1];
-                loadoutShield.textContent = information[2];
-                moneySpent.textContent = `- ${information[3]}`;
+            LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "start", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
+                moneySpent.textContent = `- ${information}`;
                 moneyPrev.textContent = moneyCurr.value;
 
-                moneyCurr.value = moneyCurr.value - information[3];
+                moneyCurr.value = moneyCurr.value - information;
             });
         });
     });
     manualRerollBTN.addEventListener("click", () => {
-        if(currentRound === 1){
+        if(currentRound === 0){
             console.log("Error: Game Not started Yet")
             return;
         }
-        currentRound = +currentRound + 1;
 
-        if(currentRound == 14){
+        currentRound = UpdateRoundNumber(currentRound);
+        moneyCurr.value = UpdateMoney(moneyCurr.value, gameSelect.value, currentRound, roundsLostInARow, "win", "live");
+
+        if(currentRound == 13){
             moneyCurr.value = 800;
             roundsLostInARow = 0;
 
-            abilityA1.src = "../../images/ValorantAbilityIcons/box.png";
-            abilityA2.src = "../../images/ValorantAbilityIcons/box.png";
-            abilityA3.src = "../../images/ValorantAbilityIcons/box.png";
+            loadoutPrimary.textContent = "None";
+            loadoutPistol.textContent = "Classic";
+            loadoutShield.textContent = "None";
 
-            abilityB1.src = "../../images/ValorantAbilityIcons/box.png"
-            abilityB2.src = "../../images/ValorantAbilityIcons/box.png"
-            abilityB3.src = "../../images/ValorantAbilityIcons/box.png"
-            abilityB4.src = "../../images/ValorantAbilityIcons/box.png"
-            abilityB5.src = "../../images/ValorantAbilityIcons/box.png"
-            abilityB6.src = "../../images/ValorantAbilityIcons/box.png"
-            abilityB7.src = "../../images/ValorantAbilityIcons/box.png"
-            abilityB8.src = "../../images/ValorantAbilityIcons/box.png"
-
-            abilityC1.src = "../../images/ValorantAbilityIcons/box.png";
-            abilityC2.src = "../../images/ValorantAbilityIcons/box.png";
-            abilityC3.src = "../../images/ValorantAbilityIcons/box.png";
-
-            abilityACount.textContent = "0";
-            abilityBCount.textContent = "0";
-            abilityCCount.textContent = "0";
+            abilityReset();
         }
 
         if(agentSelect.value === "Random"){
@@ -137,14 +142,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         agentSetup(agentSelect.value, abilityA, abilityB, abilityC);
         
-        nextRound(currentRound, roundsLostInARow, moneyCurr.value, "start", agentSelect.value).then(information => {
-            loadoutPrimary.textContent = information[0];
-            loadoutPistol.textContent = information[1];
-            loadoutShield.textContent = information[2];
-            moneySpent.textContent = `- ${information[3]}`;
+        LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "start", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
+            moneySpent.textContent = `- ${information}`;
             moneyPrev.textContent = moneyCurr.value;
 
-            moneyCurr.value = moneyCurr.value - information[3];
+            moneyCurr.value = moneyCurr.value - information;
         });
     });
     resetBTN.addEventListener("click", () => {
@@ -162,17 +164,18 @@ document.addEventListener("DOMContentLoaded", () => {
             moneyCurr.value = 800;
             roundsLostInARow = 0;
 
+            loadoutPrimary.textContent = "None";
+            loadoutPistol.textContent = "Classic";
+            loadoutShield.textContent = "None";
+
             abilityReset();
         }
 
-        nextRound(currentRound, roundsLostInARow, moneyCurr.value, "lived", agentSelect.value).then(information => {
-            loadoutPrimary.textContent = information[0];
-            loadoutPistol.textContent = information[1];
-            loadoutShield.textContent = information[2];
-            moneySpent.textContent = `- ${information[3]}`;
+        LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "live", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
+            moneySpent.textContent = `- ${information}`;
             moneyPrev.textContent = moneyCurr.value;
 
-            moneyCurr.value = +moneyCurr.value - information[3];
+            moneyCurr.value = moneyCurr.value - information;
         });
     });
     winDieBTN.addEventListener("click", () => {
@@ -185,17 +188,18 @@ document.addEventListener("DOMContentLoaded", () => {
             moneyCurr.value = 800;
             roundsLostInARow = 0;
 
+            loadoutPrimary.textContent = "None";
+            loadoutPistol.textContent = "Classic";
+            loadoutShield.textContent = "None";
+
             abilityReset();
         }
 
-        nextRound(currentRound, roundsLostInARow, moneyCurr.value, "died", agentSelect.value).then(information => {
-            loadoutPrimary.textContent = information[0];
-            loadoutPistol.textContent = information[1];
-            loadoutShield.textContent = information[2];
-            moneySpent.textContent = `- ${information[3]}`;
+        LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "died", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
+            moneySpent.textContent = `- ${information}`;
             moneyPrev.textContent = moneyCurr.value;
 
-            moneyCurr.value = +moneyCurr.value - information[3];
+            moneyCurr.value = moneyCurr.value - information;
         });
     });
     loseSurviveBTN.addEventListener("click", () => {
@@ -208,17 +212,18 @@ document.addEventListener("DOMContentLoaded", () => {
             moneyCurr.value = 800;
             roundsLostInARow = 0;
 
+            loadoutPrimary.textContent = "None";
+            loadoutPistol.textContent = "Classic";
+            loadoutShield.textContent = "None";
+
             abilityReset();
         }
 
-        nextRound(currentRound, roundsLostInARow, moneyCurr.value, "lived", agentSelect.value).then(information => {
-            loadoutPrimary.textContent = information[0];
-            loadoutPistol.textContent = information[1];
-            loadoutShield.textContent = information[2];
-            moneySpent.textContent = `- ${information[3]}`;
+        LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "live", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
+            moneySpent.textContent = `- ${information}`;
             moneyPrev.textContent = moneyCurr.value;
 
-            moneyCurr.value = +moneyCurr.value - information[3];
+            moneyCurr.value = moneyCurr.value - information;
         });
     });
     loseDieBTN.addEventListener("click", () => {
@@ -231,19 +236,18 @@ document.addEventListener("DOMContentLoaded", () => {
             moneyCurr.value = 800;
             roundsLostInARow = 0;
 
+            loadoutPrimary.textContent = "None";
+            loadoutPistol.textContent = "Classic";
+            loadoutShield.textContent = "None";
+
             abilityReset();
         }
 
-        nextRound(currentRound, roundsLostInARow, moneyCurr.value, "died", agentSelect.value).then(information => {
-            console.log(information);
-
-            loadoutPrimary.textContent = information[0];
-            loadoutPistol.textContent = information[1];
-            loadoutShield.textContent = information[2];
-            moneySpent.textContent = `- ${information[3]}`;
+        LoadoutRandomizer(currentRound, roundsLostInARow, moneyCurr.value, "died", agentSelect.value, PistolList, PrimaryList, ShieldList, AgentList).then(information => {
+            moneySpent.textContent = `- ${information}`;
             moneyPrev.textContent = moneyCurr.value;
 
-            moneyCurr.value = moneyCurr.value - information[3];
+            moneyCurr.value = moneyCurr.value - information;
         });
     });
     killBTN.addEventListener("click", () => {
@@ -269,6 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /*Functions*/
+//SetUp functions
 async function loadAgents() {
     try {
         const selectAgentElement = document.getElementById('agentSelect');
@@ -321,6 +326,72 @@ async function loadMaps() {
     }
 }
 
+async function loadLoadoutInformation() {
+    //Grab Lists
+    const PistolResponse =  await fetch('./../../files/ValAgents/Info/Pistols.txt');
+    const PistolsContent = await PistolResponse.text();
+    const PistolsLines = PistolsContent.split(/\r?\n/);
+
+    const PrimaryResponse =  await fetch('./../../files/ValAgents/Info/Primary.txt');
+    const PrimaryContent = await PrimaryResponse.text();
+    const PrimaryLines = PrimaryContent.split(/\r?\n/);
+
+    const ShieldResponse =  await fetch('./../../files/ValAgents/Info/Shields.txt');
+    const ShieldContent = await ShieldResponse.text();
+    const ShieldLines = ShieldContent.split(/\r?\n/);
+ 
+    var PistolList = PistolsLines
+    .map(line => line.trim())
+    .filter(line => line.length > 0) // Skip empty lines
+    .map(line => {
+        // Split by comma (change delimiter if your file uses spaces or tabs)
+        const [strPart, numPart] = line.split(','); 
+        
+        return [strPart.trim(), parseInt(numPart.trim(), 10)];
+    });
+
+    var PrimaryList = PrimaryLines
+    .map(line => line.trim())
+    .filter(line => line.length > 0) // Skip empty lines
+    .map(line => {
+        // Split by comma (change delimiter if your file uses spaces or tabs)
+        const [strPart, numPart] = line.split(','); 
+        
+        return [strPart.trim(), parseInt(numPart.trim(), 10)];
+    });
+
+    var ShieldList = ShieldLines
+    .map(line => line.trim())
+    .filter(line => line.length > 0) // Skip empty lines
+    .map(line => {
+        // Split by comma (change delimiter if your file uses spaces or tabs)
+        const [strPart, numPart] = line.split(','); 
+        
+        return [strPart.trim(), parseInt(numPart.trim(), 10)];
+    });
+
+    return [PistolList, PrimaryList, ShieldList];
+}
+async function loadAgentInformation(agentName) {
+    if(agentName === "Cypher"){ agentName = agentName + "A"; }
+
+    const agentResponse =  await fetch(`./../../files/ValAgents/${agentName}/ability.txt`);
+    const agentContent = await agentResponse.text();
+    const agentLines = agentContent.split(/\r?\n/);
+
+    var agentList = agentLines
+    .map(line => line.trim())
+    .filter(line => line.length > 0) // Skip empty lines
+    .map(line => {
+        // Split by comma (change delimiter if your file uses spaces or tabs)
+        const [strPart, numPart] = line.split(','); 
+        
+        return [strPart.trim(), parseInt(numPart.trim(), 10)];
+    });
+
+    return agentList;
+}
+
 function agentSetup(agent, abilityA, abilityB, abilityC) {
     if(agent === "Cypher"){
         agent = "CypherA";
@@ -331,6 +402,42 @@ function agentSetup(agent, abilityA, abilityB, abilityC) {
     abilityC.src = `../../images/ValorantAbilityIcons/${agent}/C.png`;
 }
 
+function agentAbilityChartSetup(agentName, agentAbilityList){
+    const abilityCCount = document.getElementById("abilityCCount");
+    abilityCCount.textContent = "1";
+
+    if(agentName == "Astra"){
+        agentAbilityList.shift();
+    }
+
+    //abiltiy A
+    for(i = 0; i < 3; i++){
+        if(i < agentAbilityList[0][1]){
+            document.getElementById(`A-${i+1}`).hidden = false;
+        }else{
+            document.getElementById(`A-${i+1}`).hidden = true;
+        } 
+    }
+    
+    //abiltiy B
+    for(i = 0; i < 8; i++){
+        if(i < agentAbilityList[1][1]){
+            document.getElementById(`B-${i+1}`).hidden = false;
+        }else{
+            document.getElementById(`B-${i+1}`).hidden = true;
+        } 
+    }
+
+    //abiltiy C
+    for(i = 0; i < 3; i++){
+        if(i < agentAbilityList[2][1]){
+            document.getElementById(`C-${i+1}`).hidden = false;
+        }else{
+            document.getElementById(`C-${i+1}`).hidden = true;
+        } 
+    }
+}
+
 function abilityReset(){
     const abilityACount = document.getElementById("abilityACount");
     const abilityBCount = document.getElementById("abilityBCount");
@@ -338,7 +445,7 @@ function abilityReset(){
 
     abilityACount.textContent = "0";
     abilityBCount.textContent = "0";
-    abilityCCount.textContent = "0";
+    abilityCCount.textContent = "1";
 
     //abiltiy A
     for(i = 1; i < 4; i++){
@@ -463,135 +570,196 @@ function UpdateMoney(moneyValue, gameMode, roundNumber, roundsLostInARow, winLos
 
     return moneyValue;
 }
-
-async function nextRound(roundNumber, roundsLostInARow, currMoney, aliveOrDead, agentName){
+function loadoutText(primary, pistol, shield){
     //elements
-    const primaryText = document.querySelector("#primaryGun p");
+    const PrimaryText = document.querySelector("#primaryGun p");
     const PistolText = document.querySelector("#pistolGun p");
     const ShieldText = document.querySelector("#shield p");
 
+    if(primary == ""){
+        PrimaryText.textContent = "None";
+    }else{
+        PrimaryText.textContent = primary;
+    }
+
+    if(pistol == ""){
+        PistolText.textContent = "None";
+    }else{
+        PistolText.textContent = pistol;
+    }
+
+    if(shield == ""){
+        ShieldText.textContent = "None";
+    }else{
+        ShieldText.textContent = shield;
+    }
+}
+
+//randomizer functions
+async function LoadoutRandomizer(roundNumber, roundsLostInARow, currMoney, aliveOrDead, agentName, pistolList, primaryList, shieldList, agentList){
+    const PrimaryText = document.querySelector("#primaryGun p").textContent;
+    const PistolText = document.querySelector("#pistolGun p").textContent;
+    const ShieldText = document.querySelector("#shield p");
+
     //Result Variables
-    var Primary = primaryText.textContent;
-    var Pistol = PistolText.textContent;
-    var Shield = ShieldText.textContent;
+    var Primary = "";
+    var Pistol = "";
+    var Shield = "";
+    var moneyOrginal = 0;
     var moneySpent = 0;
-    var abilityMoneySpent = 0;
+
+    if(PrimaryText != "" || PrimaryText != "None"){
+        Primary = PrimaryText;
+    }
+    if(PistolText != "" || PistolText != "None"){
+        Pistol = PistolText;
+    }
+    if(ShieldText != "" || ShieldText != "None"){
+        Shield = ShieldText;
+    }
+
+
     //Set Money
     currMoney = +currMoney;
+    moneyOrginal = +currMoney;
 
-    console.log(roundNumber);
+    //If round is Pistol round or lost pistol round
+    if(roundNumber === 1 || roundNumber === 13 || (roundNumber === 2 && roundsLostInARow > 0) || (roundNumber === 14 && roundsLostInARow > 0)){
+        if(aliveOrDead == "died" || aliveOrDead == "start" || aliveOrDead == "manual"){
+            //pistol
+            const randomPistolResult = CalculateLoadoutCost(currMoney, pistolList);
+            currMoney = +randomPistolResult[0];
+            Pistol = randomPistolResult[1];
+        }
 
-    //Grab Lists
-    const PistolResponse =  await fetch('./../../files/ValAgents/Info/Pistols.txt');
-    const PistolsContent = await PistolResponse.text();
-    const PistolsLines = PistolsContent.split(/\r?\n/);
+        //ability
+        const abiltyCosts = CalculateAbilityCharges(agentName, currMoney, agentList);
+        currMoney = +abiltyCosts;
 
-    const PrimaryResponse =  await fetch('./../../files/ValAgents/Info/Primary.txt');
-    const PrimaryContent = await PrimaryResponse.text();
-    const PrimaryLines = PrimaryContent.split(/\r?\n/);
+        //shield
+        const randomShieldResult = CalculateLoadoutCost(currMoney, shieldList);
+        currMoney = +randomShieldResult[0];
+        Shield = randomShieldResult[1];
+    }
+    //If not a pistol round
+    else{
+        //Won Pistol round
+        if(roundNumber == 2 || roundNumber == 14){
+            //if round survived
+            console.log(aliveOrDead)
+            if(aliveOrDead == "live"){
+                console.log("Round 2 live");
+                //Primary 
+                const randomPrimaryResult = CalculateLoadoutCost(currMoney, primaryList);
+                currMoney = +randomPrimaryResult[0];
+                Primary = randomPrimaryResult[1];
 
-    const ShieldResponse =  await fetch('./../../files/ValAgents/Info/Shields.txt');
-    const ShieldContent = await ShieldResponse.text();
-    const ShieldLines = ShieldContent.split(/\r?\n/);
- 
-    var PistolList = PistolsLines
-    .map(line => line.trim())
-    .filter(line => line.length > 0) // Skip empty lines
-    .map(line => {
-        // Split by comma (change delimiter if your file uses spaces or tabs)
-        const [strPart, numPart] = line.split(','); 
-        
-        return [strPart.trim(), parseInt(numPart.trim(), 10)];
-    });
+                //Shield
+                const randomShieldResult = CalculateLoadoutCost(currMoney, shieldList);
+                currMoney = +randomShieldResult[0];
+                Shield = randomShieldResult[1];
 
-    var PrimaryList = PrimaryLines
-    .map(line => line.trim())
-    .filter(line => line.length > 0) // Skip empty lines
-    .map(line => {
-        // Split by comma (change delimiter if your file uses spaces or tabs)
-        const [strPart, numPart] = line.split(','); 
-        
-        return [strPart.trim(), parseInt(numPart.trim(), 10)];
-    });
+                //ability
+                const abiltyCosts = CalculateAbilityCharges(agentName, currMoney, agentList);
+                currMoney = +abiltyCosts;
+            }
+            else{
+                console.log("Round 2 dead");
+                 //Primary 
+                const randomPrimaryResult = CalculateLoadoutCost(currMoney, primaryList);
+                currMoney = +randomPrimaryResult[0];
+                Primary = randomPrimaryResult[1];
 
-    var ShieldList = ShieldLines
-    .map(line => line.trim())
-    .filter(line => line.length > 0) // Skip empty lines
-    .map(line => {
-        // Split by comma (change delimiter if your file uses spaces or tabs)
-        const [strPart, numPart] = line.split(','); 
-        
-        return [strPart.trim(), parseInt(numPart.trim(), 10)];
-    });
+                //Shield
+                const randomShieldResult = CalculateLoadoutCost(currMoney, shieldList);
+                currMoney = +randomShieldResult[0];
+                Shield = randomShieldResult[1];
 
-    if(agentName === "Cypher"){ agentName = agentName + "A"; }
-    const agentResponse =  await fetch(`./../../files/ValAgents/${agentName}/ability.txt`);
-    const agentContent = await agentResponse.text();
-    const agentLines = agentContent.split(/\r?\n/);
+                //ability
+                const abiltyCosts = CalculateAbilityCharges(agentName, currMoney, agentList);
+                currMoney = +abiltyCosts;
 
-    var agentList = agentLines
-    .map(line => line.trim())
-    .filter(line => line.length > 0) // Skip empty lines
-    .map(line => {
-        // Split by comma (change delimiter if your file uses spaces or tabs)
-        const [strPart, numPart] = line.split(','); 
-        
-        return [strPart.trim(), parseInt(numPart.trim(), 10)];
-    });
+                //pistol
+                const randomPistolResult = CalculateLoadoutCost(currMoney, pistolList);
+                currMoney = +randomPistolResult[0];
+                Pistol = randomPistolResult[1];
+            }
+        }
+        //if its after pistol round
+        else{
+            if(aliveOrDead == "live"){
+                console.log("Round 3 or more live");
+                //Shield
+                const randomShieldResult = CalculateLoadoutCost(currMoney, shieldList);
+                currMoney = +randomShieldResult[0];
+                Shield = randomShieldResult[1];
 
-    return [Primary, Pistol, Shield, moneySpent];
-}
+                //ability
+                const abiltyCosts = CalculateAbilityCharges(agentName, currMoney, agentList);
+                currMoney = +abiltyCosts;
+            }
+            else{
+                //save round
+                if(currMoney <= 3000){
+                    console.log("Round 3 or more dead save");
+                    //pistol
+                    const randomPistolResult = CalculateLoadoutCost(currMoney, pistolList);
+                    currMoney = +randomPistolResult[0];
+                    Pistol = randomPistolResult[1];
 
-async function agentAbilityChart(agentName){
-    if(agentName == "Cypher"){agentName = agentName + "A";}
+                    //ability
+                    const abiltyCosts = CalculateAbilityCharges(agentName, currMoney, agentList);
+                    currMoney = +abiltyCosts;
 
-    const response =  await fetch(`./../../files/ValAgents/${agentName}/ability.txt`);
-    const content = await response.text();
-    const lines = content.split(/\r?\n/);
+                    //Shield
+                    const randomShieldResult = CalculateLoadoutCost(currMoney, shieldList);
+                    currMoney = +randomShieldResult[0];
+                    Shield = randomShieldResult[1];
+                }else{
+                    console.log("Round 3 or more dead buy");
+                    //Primary 
+                    const randomPrimaryResult = CalculateLoadoutCost(currMoney, primaryList);
+                    currMoney = +randomPrimaryResult[0];
+                    Primary = randomPrimaryResult[1];
 
-    var agentAbilityList = lines
-    .map(line => line.trim())
-    .filter(line => line.length > 0) // Skip empty lines
-    .map(line => {
-        // Split by comma (change delimiter if your file uses spaces or tabs)
-        const [strPart, numPart] = line.split(','); 
-        
-        return [strPart.trim(), parseInt(numPart.trim(), 10)];
-    });
+                    //Shield
+                    const randomShieldResult = CalculateLoadoutCost(currMoney, shieldList);
+                    currMoney = +randomShieldResult[0];
+                    Shield = randomShieldResult[1];
 
-    if(agentName == "Astra"){
-        agentAbilityList.shift();
+                    //ability
+                    const abiltyCosts = CalculateAbilityCharges(agentName, currMoney, agentList);
+                    currMoney = +abiltyCosts;
+
+                    //pistol
+                    const randomPistolResult = CalculateLoadoutCost(currMoney, pistolList);
+                    currMoney = +randomPistolResult[0];
+                    Pistol = randomPistolResult[1];
+                }
+            }
+        }
     }
 
-    //abiltiy A
-    for(i = 0; i < 3; i++){
-        if(i < agentAbilityList[0][1]){
-            document.getElementById(`A-${i+1}`).hidden = false;
-        }else{
-            document.getElementById(`A-${i+1}`).hidden = true;
-        } 
-    }
+    //Set Text
+    loadoutText(Primary, Pistol, Shield);
+
+    moneySpent = +moneyOrginal - +currMoney;
     
-    //abiltiy B
-    for(i = 0; i < 8; i++){
-        if(i < agentAbilityList[1][1]){
-            document.getElementById(`B-${i+1}`).hidden = false;
-        }else{
-            document.getElementById(`B-${i+1}`).hidden = true;
-        } 
-    }
-
-    //abiltiy C
-    for(i = 0; i < 3; i++){
-        if(i < agentAbilityList[2][1]){
-            document.getElementById(`C-${i+1}`).hidden = false;
-        }else{
-            document.getElementById(`C-${i+1}`).hidden = true;
-        } 
-    }
+    //Results
+    return moneySpent;
 }
 
-function abilityCharges(agentName, currMoney, agentList){
+function CalculateLoadoutCost(currMoney, loadoutList){
+    const loadoutFiltered = loadoutList.filter(([item, value]) =>  value <= currMoney);
+    const randomLoadout = loadoutFiltered[Math.floor(Math.random() * loadoutFiltered.length)];
+
+    var moneyLeft = +currMoney - +randomLoadout[1];
+
+    return [moneyLeft, randomLoadout[0]];
+}
+ 
+
+function CalculateAbilityCharges(agentName, currMoney, agentList){
     const agentSecretNumber = document.getElementById("agentSecretNumber");
     const abilityACount = document.getElementById("abilityACount");
     const abilityBCount = document.getElementById("abilityBCount");
@@ -601,6 +769,7 @@ function abilityCharges(agentName, currMoney, agentList){
     var abilityBCharges = 0;
     var abilityCCharges = 0;
     var moneySpent = 0;
+    var chargesLeft = 0;
 
     if(agentName === "Astra"){
         // const currentStars = agentSecretNumber.textContent;
@@ -663,8 +832,57 @@ function abilityCharges(agentName, currMoney, agentList){
         // }
     }
     else {
-       
+        var moneyLeft = +currMoney;
+        
+        //Ability A
+        chargesLeft = agentList[0][1] - abilityACount.textContent;
+        console.log(chargesLeft)
+
+        maxChargesBasedByMoney = Math.floor(moneyLeft / agentList[0][0]);
+
+        const upperBoundA = Math.min(chargesLeft, maxChargesBasedByMoney); 
+        const additionalAbilityACharges = Math.floor(Math.random() * (upperBoundA+1));
+        moneyLeft = moneyLeft - (additionalAbilityACharges * agentList[0][0]);
+
+        const newCurrentACharges = +abilityACount.textContent + +additionalAbilityACharges;
+
+        abilityACount.textContent = newCurrentACharges;
+        for(i = 1; i <= newCurrentACharges; i++){
+            document.getElementById(`A-${i}`).src = "../../images/ValorantAbilityIcons/boxGreen.png"
+        }
+        
+        //Ability B
+        chargesLeft = agentList[0][1] - abilityBCount.textContent;
+
+        maxChargesBasedByMoney = Math.floor(moneyLeft / agentList[0][0]);
+
+        const upperBoundB = Math.min(chargesLeft, maxChargesBasedByMoney); 
+        const additionalAbilityBCharges = Math.floor(Math.random() * (upperBoundB+1));
+        moneyLeft = moneyLeft - (additionalAbilityBCharges * agentList[0][0]);
+
+        const newCurrentBCharges = +abilityBCount.textContent + +additionalAbilityBCharges;
+
+        abilityBCount.textContent = newCurrentBCharges;
+        for(i = 1; i <= newCurrentBCharges; i++){
+            document.getElementById(`B-${i}`).src = "../../images/ValorantAbilityIcons/boxGreen.png"
+        }
+
+        //Ability C
+        chargesLeft = agentList[0][1] - abilityCCount.textContent;
+
+        maxChargesBasedByMoney = Math.floor(moneyLeft / agentList[0][0]);
+
+        const upperBoundC = Math.min(chargesLeft, maxChargesBasedByMoney); 
+        const additionalAbilityCCharges = Math.floor(Math.random() * (upperBoundC+1));
+        moneyLeft = moneyLeft - (additionalAbilityCCharges * agentList[0][0]);
+
+        const newCurrentCCharges = +abilityCCount.textContent + +additionalAbilityCCharges;
+
+        abilityCCount.textContent = newCurrentCCharges;
+        for(i = 1; i <= newCurrentCCharges; i++){
+            document.getElementById(`C-${i}`).src = "../../images/ValorantAbilityIcons/boxGreen.png"
+        }
     }
 
-    return moneySpent;
+    return moneyLeft;
 }
