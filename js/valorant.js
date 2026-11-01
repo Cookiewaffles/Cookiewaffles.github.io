@@ -29,9 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const loadoutPistol = document.getElementById("pistolGun").querySelector('p');
     const loadoutShield = document.getElementById("shield").querySelector('p');
 
-    const abilityA = document.getElementById("abilityA");
-    const abilityB = document.getElementById("abilityB");
-    const abilityC = document.getElementById("abilityC");
+    const abilityAButton = document.getElementById("abilityAButton");
+    const abilityBButton = document.getElementById("abilityBButton");
+    const abilityCButton = document.getElementById("abilityCButton");
 
     const winSurviveBTN = document.getElementById("winSurvive");
     const winDieBTN = document.getElementById("winDie");
@@ -550,7 +550,7 @@ function abilityUsed(abilityUsed){
     if(abilityUsed === "A"){
         abilityCount = document.getElementById('abilityACount');
     }
-    if(abilityUsed === "B"){
+    else if(abilityUsed === "B"){
         abilityCount = document.getElementById('abilityBCount');
     }
     else if(abilityUsed === "C"){
@@ -560,7 +560,10 @@ function abilityUsed(abilityUsed){
     }
 
     //update ability text
+    console.log("button pressed: " + abilityUsed);
+    console.log("Count: " + abilityCount.textContent);
     if(+abilityCount.textContent > 0){
+        console.log("cout abouve 1")
         if(agentSelect.value === "Astra"){
             agentSecretNumbers.textContent = +agentSecretNumbers.textContent - 1;
         }
