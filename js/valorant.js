@@ -613,8 +613,6 @@ function UpdateMoney(moneyValue, gameMode, roundNumber, roundsLostInARow, winLos
         moneyValue = +moneyValue + +money;
     }
     else if(gameMode === "swift"){
-        moneyValue = +moneyValue + 3000;
-
         if(roundNumber == 1 || roundNumber == 5){
             moneyValue = 800;
         }
