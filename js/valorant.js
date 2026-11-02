@@ -833,11 +833,11 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
     const abilityBCount = document.getElementById("abilityBCount");
     const abilityCCount = document.getElementById("abilityCCount");
 
-    var abilityACharges = 0;
-    var abilityBCharges = 0;
-    var abilityCCharges = 0;
-    var moneySpent = 0;
+    var moneyLeft = +currMoney;
+    var abiltyCost = 0;
     var chargesLeft = 0;
+
+    console.log("Ability Random : " + agentName);
 
     if(agentName === "Astra"){
         // const currentStars = agentSecretNumber.textContent;
@@ -899,9 +899,7 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
         //     ability.src = "../../images/ValorantAbilityIcons/boxGreen.png";
         // }
     }
-    else {
-        var moneyLeft = +currMoney;
-        
+    else {        
         //Ability A
         chargesLeft = agentList[0][1] - abilityACount.textContent;
 
@@ -909,7 +907,10 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
 
         const upperBoundA = Math.min(chargesLeft, maxChargesBasedByMoney); 
         const additionalAbilityACharges = Math.floor(Math.random() * (upperBoundA+1));
-        moneyLeft = moneyLeft - (additionalAbilityACharges * agentList[0][0]);
+        abiltyCost = (+additionalAbilityACharges * +agentList[0][0]);
+        moneyLeft = moneyLeft - abiltyCost;
+
+        console.log("A : " + abiltyCost);
 
         const newCurrentACharges = +abilityACount.textContent + +additionalAbilityACharges;
 
@@ -919,13 +920,16 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
         }
         
         //Ability B
-        chargesLeft = agentList[0][1] - abilityBCount.textContent;
+        chargesLeft = agentList[1][1] - abilityBCount.textContent;
 
-        maxChargesBasedByMoney = Math.floor(moneyLeft / agentList[0][0]);
+        maxChargesBasedByMoney = Math.floor(moneyLeft / agentList[1][0]);
 
         const upperBoundB = Math.min(chargesLeft, maxChargesBasedByMoney); 
         const additionalAbilityBCharges = Math.floor(Math.random() * (upperBoundB+1));
-        moneyLeft = moneyLeft - (additionalAbilityBCharges * agentList[0][0]);
+        abiltyCost = (+additionalAbilityBCharges * +agentList[1][0]);
+        moneyLeft = moneyLeft - abiltyCost;
+
+        console.log("A : " + abiltyCost);
 
         const newCurrentBCharges = +abilityBCount.textContent + +additionalAbilityBCharges;
 
@@ -935,13 +939,16 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
         }
 
         //Ability C
-        chargesLeft = agentList[0][1] - abilityCCount.textContent;
+        chargesLeft = agentList[2][1] - abilityCCount.textContent;
 
-        maxChargesBasedByMoney = Math.floor(moneyLeft / agentList[0][0]);
+        maxChargesBasedByMoney = Math.floor(moneyLeft / agentList[2][0]);
 
         const upperBoundC = Math.min(chargesLeft, maxChargesBasedByMoney); 
         const additionalAbilityCCharges = Math.floor(Math.random() * (upperBoundC+1));
-        moneyLeft = moneyLeft - (additionalAbilityCCharges * agentList[0][0]);
+        abiltyCost = (+additionalAbilityCCharges * +agentList[2][0]);
+        moneyLeft = moneyLeft - abiltyCost;
+
+        console.log("A : " + abiltyCost);
 
         const newCurrentCCharges = +abilityCCount.textContent + +additionalAbilityCCharges;
 
