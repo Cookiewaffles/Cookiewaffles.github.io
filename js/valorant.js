@@ -3,12 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loadAgents();
     loadMaps();
 
-    var StratsList;
-    var SecretList;
-    var AgentStratList;
-
-    var comboStratList;
-
     loadStrats().then(info => {
         StratsList = info;
     });
@@ -29,9 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const loadoutPistol = document.getElementById("pistolGun").querySelector('p');
     const loadoutShield = document.getElementById("shield").querySelector('p');
 
-    const abilityAButton = document.getElementById("abilityAButton");
-    const abilityBButton = document.getElementById("abilityBButton");
-    const abilityCButton = document.getElementById("abilityCButton");
+    const abilityAButtonAdd = document.getElementById("abilityAButtonAdd");
+    const abilityBButtonAdd = document.getElementById("abilityBButtonAdd");
+    const abilityCButtonAdd = document.getElementById("abilityCButtonAdd");
+
+    const abilityAButtonRemove = document.getElementById("abilityAButtonRemove");
+    const abilityBButtonRemove = document.getElementById("abilityBButtonRemove");
+    const abilityCButtonRemove = document.getElementById("abilityCButtonRemove");
 
     const winSurviveBTN = document.getElementById("winSurvive");
     const winDieBTN = document.getElementById("winDie");
@@ -64,6 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
     var PrimaryList;
     var ShieldList;
     var AgentList;
+
+    var StratsList;
+    var SecretList;
+    var AgentStratList;
+
+    var comboStratList;
 
     var roundsLostInARow = 0;
     var currentRound = 0;
@@ -291,14 +295,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     //Ability Count Buttons
-    abilityAButton.addEventListener("click", () => {
+    abilityAButtonRemove.addEventListener("click", () => {
         abilityUsed("A");
     });
-    abilityBButton.addEventListener("click", () => {
+    abilityBButtonRemove.addEventListener("click", () => {
         abilityUsed("B");
     });
-    abilityCButton.addEventListener("click", () => {
+    abilityCButtonRemove.addEventListener("click", () => {
         abilityUsed("C");
+    });
+
+    abilityAButtonAdd.addEventListener("click", () => {
+        if(AgentList !== undefined){
+            abilityAdded("A", AgentList);  
+        }
+    });
+    abilityBButtonAdd.addEventListener("click", () => {
+        if(AgentList !== undefined){
+            abilityAdded("B", AgentList);
+        }
+    });
+    abilityCButtonAdd.addEventListener("click", () => {
+        if(AgentList !== undefined){
+            abilityAdded("C", AgentList);
+        }
     });
 });
 
@@ -544,7 +564,6 @@ function abilityReset(){
 
 function abilityUsed(abilityUsed){
     var abilityCount;
-    const agentSecretNumbers = document.getElementById('agentSecretNumber');
 
     //select correct text area
     if(abilityUsed === "A"){
@@ -560,18 +579,40 @@ function abilityUsed(abilityUsed){
     }
 
     //update ability text
-    console.log("button pressed: " + abilityUsed);
-    console.log("Count: " + abilityCount.textContent);
     if(+abilityCount.textContent > 0){
-        console.log("cout abouve 1")
-        if(agentSelect.value === "Astra"){
-            agentSecretNumbers.textContent = +agentSecretNumbers.textContent - 1;
-        }
-
         const abilityBox = document.getElementById(`${abilityUsed}-${abilityCount.textContent}`);
         abilityBox.src = "../../images/ValorantAbilityIcons/box.png";
 
         abilityCount.textContent = +abilityCount.textContent - 1;
+    }
+}
+function abilityAdded(addAbility, agentAbilityList){
+    var abilityCount;
+    var maxCharges;
+
+
+    //select correct text area
+    if(addAbility === "A"){
+        abilityCount = document.getElementById('abilityACount');
+        maxCharges = agentAbilityList[0][1];
+    }
+    else if(addAbility === "B"){
+        abilityCount = document.getElementById('abilityBCount');
+        maxCharges = agentAbilityList[1][1];
+    }
+    else if(addAbility === "C"){
+        abilityCount = document.getElementById('abilityCCount');
+        maxCharges = agentAbilityList[2][1];
+    }else{
+        return;
+    }
+
+    //update ability text
+    if(+abilityCount.textContent < maxCharges){
+        abilityCount.textContent = +abilityCount.textContent + 1;
+
+        const abilityBox = document.getElementById(`${addAbility}-${abilityCount.textContent}`);
+        abilityBox.src = "../../images/ValorantAbilityIcons/boxGreen.png";
     }
 }
 
@@ -835,8 +876,6 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
     var abiltyCost = 0;
     var chargesLeft = 0;
 
-    console.log("Ability Random : " + agentName);
-
     if(agentName === "Astra"){
         // const currentStars = agentSecretNumber.textContent;
 
@@ -908,8 +947,6 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
         abiltyCost = (+additionalAbilityACharges * +agentList[0][0]);
         moneyLeft = moneyLeft - abiltyCost;
 
-        console.log("A : " + abiltyCost);
-
         const newCurrentACharges = +abilityACount.textContent + +additionalAbilityACharges;
 
         abilityACount.textContent = newCurrentACharges;
@@ -927,8 +964,6 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
         abiltyCost = (+additionalAbilityBCharges * +agentList[1][0]);
         moneyLeft = moneyLeft - abiltyCost;
 
-        console.log("A : " + abiltyCost);
-
         const newCurrentBCharges = +abilityBCount.textContent + +additionalAbilityBCharges;
 
         abilityBCount.textContent = newCurrentBCharges;
@@ -945,8 +980,6 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
         const additionalAbilityCCharges = Math.floor(Math.random() * (upperBoundC+1));
         abiltyCost = (+additionalAbilityCCharges * +agentList[2][0]);
         moneyLeft = moneyLeft - abiltyCost;
-
-        console.log("A : " + abiltyCost);
 
         const newCurrentCCharges = +abilityCCount.textContent + +additionalAbilityCCharges;
 

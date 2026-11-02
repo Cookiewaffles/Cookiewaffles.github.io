@@ -301,7 +301,7 @@ section#strategySelection, section#secretSelection{
 #abilityB-boxes {
     flex-wrap: wrap;
 }
-#abilitySelection > div > div > div {
+#abilitySelection > div > div > div:not(.buttons) {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -310,6 +310,14 @@ section#strategySelection, section#secretSelection{
 #abilitySelection .abilityBox {
         min-width: 28px;
         width: 28px;
+}
+.abilities div.buttons {
+    display: flex;
+    flex-direction: column;
+}
+.abilities div.buttons button{
+    height: 66px;
+    width: 100px;
 }
 /*endregion*/
 
@@ -518,6 +526,11 @@ section#strategySelection, section#secretSelection{
         margin-left: 100px;
         margin-right: 100px;
     }
+    
+    .abilities div.buttons button {
+        height: 50px;
+        width: 130px;
+    }
 }
 
 @media screen and (min-width: 40em) {
@@ -590,7 +603,7 @@ section#strategySelection, section#secretSelection{
     .interactiveZone {
         display: grid;
         grid-template-columns: 30% 20% 20% 30%; 
-        grid-template-rows: 375px 150px;
+        grid-template-rows: 400px 150px;
     }
 
     .interactiveZone > :nth-child(n){
@@ -739,8 +752,7 @@ section#strategySelection, section#secretSelection{
         
         padding-left: 10px;
     }
-    
-    
+
 
     /*Strat loadout*/
     #strategySelection h2 {
@@ -847,4 +859,14 @@ section#strategySelection, section#secretSelection{
     .span-1 { grid-column: span 1; }
     .span-2 { grid-column: span 2; }
     .span-3 { grid-column: span 3; }
+}
+
+@media screen and (min-width: 75em) {
+    .interactiveZone {
+        grid-template-rows: 360px 150px;
+    }
+
+    .abilities div.buttons {
+        flex-direction: row;
+    }
 }
