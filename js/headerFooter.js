@@ -176,7 +176,7 @@ class ValoFooter extends HTMLElement {
                     </ul>
                 </div>
                 <div class="user-info">
-                    <p>Ver 1.01</p>
+                    <p>Ver 1.02</p>
                     <p>@schemaExe</p>
                 </div>
             </footer>
