@@ -16,8 +16,8 @@ class MyHeader extends HTMLElement {
                     <nav>
                         <ul class="nav-links">
                             <li><a href="/index.html">Home</a></li>
-                            <li><a href="/aboutMe.html">About Me</a></li>
-                            <li><a href="/projects.html">Projects</a></li>
+                            <li><a href="/Pages/Home/aboutMe.html">About Me</a></li>
+                            <li><a href="/Pages/Home/projects.html">Projects</a></li>
                         </ul>
                     </nav>
                 </div>
