@@ -1,11 +1,16 @@
 main h1 {
     margin-left: 5em;
 }
-
+main p {
+    text-indent: 25px;
+    margin-top: 10px;
+    margin-left: 5em;
+    margin-right: 5em;
+}
 .form-container {
   display: flex;
   justify-content: center;
-  min-height: 100vh;       
+  min-height: 70vh;       
 }
 
 form {
