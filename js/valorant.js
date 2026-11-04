@@ -892,9 +892,13 @@ function CalculateLoadoutCost(currMoney, loadoutList){
     const loadoutFiltered = loadoutList.filter(([item, value]) =>  value <= currMoney);
     const randomLoadout = loadoutFiltered[Math.floor(Math.random() * loadoutFiltered.length)];
 
-    var moneyLeft = +currMoney - +randomLoadout[1];
+    if(randomLoadout != undefined){
+        var moneyLeft = +currMoney - +randomLoadout[1];
 
-    return [moneyLeft, randomLoadout[0]];
+        return [moneyLeft, randomLoadout[0]];
+    }else{
+        return [0, "None"];
+    }
 }
  
 function CalculateAbilityCharges(agentName, currMoney, agentList){
