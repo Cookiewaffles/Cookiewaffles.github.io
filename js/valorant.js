@@ -72,6 +72,21 @@ document.addEventListener("DOMContentLoaded", () => {
     var roundsLostInARow = 0;
     var currentRound = 0;
 
+    winSurviveBTN.disabled = true;
+    winDieBTN.disabled = true;
+    loseSurviveBTN.disabled = true;
+    loseDieBTN.disabled = true;
+    killBTN.disabled = true;
+    spikeBTN.disabled = true;
+
+    abilityAButtonAdd.disabled = true;
+    abilityBButtonAdd.disabled = true;
+    abilityCButtonAdd.disabled = true;
+    abilityAButtonRemove.disabled = true;
+    abilityBButtonRemove.disabled = true;
+    abilityCButtonRemove.disabled = true;
+
+    moneyCurr.disabled = true;
 
     //Grab relevant info
     loadLoadoutInformation().then((loadoutInfo)=>{
@@ -91,6 +106,22 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error: No game mode selected")
             return;
         }
+
+        winSurviveBTN.disabled = false;
+        winDieBTN.disabled = false;
+        loseSurviveBTN.disabled = false;
+        loseDieBTN.disabled = false;
+        killBTN.disabled = false;
+        spikeBTN.disabled = false;
+
+        abilityAButtonAdd.disabled = false;
+        abilityBButtonAdd.disabled = false;
+        abilityCButtonAdd.disabled = false;
+        abilityAButtonRemove.disabled = false;
+        abilityBButtonRemove.disabled = false;
+        abilityCButtonRemove.disabled = false;
+
+        moneyCurr.disabled = false;
 
         loadoutPrimary.textContent = "None";
         loadoutPistol.textContent = "None";
@@ -144,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         currentRound = UpdateRoundNumber(currentRound);
-        moneyCurr.value = UpdateMoney(moneyCurr.value, gameSelect.value, currentRound, roundsLostInARow, "win", "live");
+        moneyCurr.value = UpdateMoney(moneyCurr.value, gameSelect.value, currentRound, roundsLostInARow, "manual", "manual");
 
         if(currentRound == 13){
             moneyCurr.value = 800;
@@ -645,13 +676,14 @@ function UpdateMoney(moneyValue, gameMode, roundNumber, roundsLostInARow, winLos
             else if(roundsLostInARow === 2) {
                 money = 2400;
             }
-            else if(roundsLostInARow === 3){
+            else if(roundsLostInARow >= 3){
                 money = 2900;
             }
         }
 
         //Calculate new total
         moneyValue = +moneyValue + +money;
+        console.log(moneyValue);
     }
     else if(gameMode === "swift"){
         if(roundNumber == 1 || roundNumber == 5){
@@ -731,7 +763,6 @@ async function LoadoutRandomizer(roundNumber, roundsLostInARow, currMoney, alive
     if(ShieldText != "" || ShieldText != "None"){
         Shield = ShieldText;
     }
-
 
     //Set Money
     currMoney = +currMoney;
