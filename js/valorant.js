@@ -683,7 +683,6 @@ function UpdateMoney(moneyValue, gameMode, roundNumber, roundsLostInARow, winLos
 
         //Calculate new total
         moneyValue = +moneyValue + +money;
-        console.log(moneyValue);
     }
     else if(gameMode === "swift"){
         if(roundNumber == 1 || roundNumber == 5){
@@ -836,8 +835,8 @@ async function LoadoutRandomizer(roundNumber, roundsLostInARow, currMoney, alive
                 Shield = randomShieldResult[1];
 
                 //ability
-                const abiltyCosts = CalculateAbilityCharges(agentName, currMoney, agentList);
-                currMoney = +abiltyCosts;
+                const moneyAfterAbilityCost = CalculateAbilityCharges(agentName, currMoney, agentList);
+                currMoney = +moneyAfterAbilityCost;
             }
             else{
                 //save round
@@ -897,6 +896,7 @@ function CalculateLoadoutCost(currMoney, loadoutList){
 
         return [moneyLeft, randomLoadout[0]];
     }else{
+        console.log("No Value");
         return [0, "None"];
     }
 }
@@ -1005,7 +1005,7 @@ function CalculateAbilityCharges(agentName, currMoney, agentList){
         for(i = 1; i <= newCurrentBCharges; i++){
             document.getElementById(`B-${i}`).src = "../../images/ValorantAbilityIcons/boxGreen.png"
         }
-
+        
         //Ability C
         chargesLeft = agentList[2][1] - abilityCCount.textContent;
 
